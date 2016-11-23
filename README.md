@@ -1,4 +1,3 @@
-# ydt
 
 # somebody's homework
 
