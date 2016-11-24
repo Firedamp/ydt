@@ -4,6 +4,7 @@ import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 
+import ydt.sunlightcongress.fragment.AboutmeFragment;
 import ydt.sunlightcongress.fragment.BillsFragment;
 import ydt.sunlightcongress.fragment.CommitteesFragment;
 import ydt.sunlightcongress.fragment.FavoriteFragment;
@@ -22,7 +23,8 @@ public class FragmentController {
         LEGISLATORS,
         FAVORITE,
         COMMITTEES,
-        BILLS
+        BILLS,
+        ABOUTME
     }
 
     public FragmentController(FragmentManager manager, int containerId){
@@ -48,6 +50,8 @@ public class FragmentController {
                 return new CommitteesFragment();
             case BILLS:
                 return new BillsFragment();
+            case ABOUTME:
+                return  new AboutmeFragment();
         }
     }
 
