@@ -76,7 +76,7 @@ public class MainActivity extends AppCompatActivity
             setTitle("favorites");
         }
         else if (id == R.id.nav_aboutme) {
-
+            //放到这里
         }
 
         mDrawerLayout.closeDrawer(GravityCompat.START);
