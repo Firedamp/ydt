@@ -1,8 +1,5 @@
 package ydt.sunlightcongress.activity;
 
-import android.content.Context;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -56,18 +53,6 @@ public class MainActivity extends AppCompatActivity
             super.onBackPressed();
         }
     }
-    public void myClickHandler(){
-        ConnectivityManager connMgr = (ConnectivityManager)
-                getSystemService(Context.CONNECTIVITY_SERVICE);
-        NetworkInfo networkInfo = connMgr.getActiveNetworkInfo();
-        if (networkInfo != null && networkInfo.isConnected()) {
-            // fetch data
-            mFragmentController.go(Page.ABOUTME);
-            setTitle("About Me");
-        } else {
-            // display error
-        }
-    }
 
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
@@ -91,9 +76,7 @@ public class MainActivity extends AppCompatActivity
             setTitle("favorites");
         }
         else if (id == R.id.nav_aboutme) {
-//            mFragmentController.go(Page.ABOUTME);
-//            setTitle("About Me");
-            myClickHandler();
+            //放到这里
         }
 
         mDrawerLayout.closeDrawer(GravityCompat.START);

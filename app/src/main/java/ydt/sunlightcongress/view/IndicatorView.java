@@ -50,7 +50,6 @@ public class IndicatorView extends FrameLayout {
         return getContext().getResources().getDisplayMetrics().widthPixels;
     }
 
-
     public void setOnIndexSelectListener(OnIndexSelectListener listener) {
         this.mListener = listener;
     }
