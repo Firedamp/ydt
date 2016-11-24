@@ -32,7 +32,7 @@ public class Legislator {
     public String office;
     public String contact_form;
     public int votesmart_id;
-    public int district;
+    public int district = -1;
     public String oc_email;
     public String ocd_id;
 }
