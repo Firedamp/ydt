@@ -1,4 +1,4 @@
-package ydt.sunlightcongress.common;
+package ydt.sunlightcongress.adapter;
 
 import android.view.View;
 import android.view.ViewGroup;

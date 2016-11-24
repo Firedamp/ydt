@@ -1,4 +1,4 @@
-package ydt.sunlightcongress.model;
+package ydt.sunlightcongress.data.model;
 
 import java.util.Map;
 

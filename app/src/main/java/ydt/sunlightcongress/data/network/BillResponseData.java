@@ -1,8 +1,8 @@
-package ydt.sunlightcongress.model.network;
+package ydt.sunlightcongress.data.network;
 
 import java.util.List;
 
-import ydt.sunlightcongress.model.Bill;
+import ydt.sunlightcongress.data.model.Bill;
 
 /**
  * Created by Caodongyao on 2016/11/24.

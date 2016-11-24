@@ -3,6 +3,7 @@ package ydt.sunlightcongress.view;
 import android.animation.Animator;
 import android.animation.ObjectAnimator;
 import android.content.Context;
+import android.os.Build;
 import android.util.AttributeSet;
 import android.view.Gravity;
 import android.view.View;
@@ -58,6 +59,9 @@ public class IndicatorView extends FrameLayout {
         if (titles == null || titles.length == 0) {
             setVisibility(GONE);
             return;
+        }
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            setZ(10);
         }
         setVisibility(VISIBLE);
         mContainerLayout.setOrientation(LinearLayout.HORIZONTAL);
