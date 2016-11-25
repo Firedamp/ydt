@@ -11,6 +11,7 @@ import android.support.v4.content.LocalBroadcastManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ListView;
 
 import ydt.sunlightcongress.R;
@@ -22,7 +23,7 @@ import ydt.sunlightcongress.view.IndicatorView;
  * Created by Caodongyao on 2016/11/23.
  */
 
-public abstract class BaseTabListFragment<T> extends Fragment implements IndicatorView.OnIndexSelectListener{
+public abstract class BaseTabListFragment<T> extends Fragment implements IndicatorView.OnIndexSelectListener, AdapterView.OnItemClickListener{
     private BaseListAdapter<T> mAdapter;
     private DataSource mDataSource;
 
@@ -44,6 +45,7 @@ public abstract class BaseTabListFragment<T> extends Fragment implements Indicat
         View view = inflater.inflate(R.layout.fragment_base, container, false);
 
         mListView = (ListView)view.findViewById(R.id.fragment_base_list);
+        mListView.setOnItemClickListener(this);
         mIndicator = (IndicatorView)view.findViewById(R.id.fragment_base_indicator);
 
         mAdapter = createAdapter();

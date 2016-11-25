@@ -16,14 +16,14 @@ import ydt.sunlightcongress.data.model.Legislator;
  * Created by Caodongyao on 2016/11/24.
  */
 
-public class LegistorListAdapter extends BaseListAdapter<Legislator> {
+public class LegislatorListAdapter extends BaseListAdapter<Legislator> {
     public static final String URL_PIC_PREFIX = "https://theunitedstates.io/images/congress/original/";
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         ViewHolder viewHolder;
         if (convertView == null) {
-            convertView = LayoutInflater.from(parent.getContext()).inflate(R.layout.listitem_legistor, parent, false);
+            convertView = LayoutInflater.from(parent.getContext()).inflate(R.layout.listitem_legislator, parent, false);
             viewHolder = new ViewHolder(convertView);
             convertView.setTag(viewHolder);
         } else {
@@ -53,6 +53,8 @@ public class LegistorListAdapter extends BaseListAdapter<Legislator> {
         viewHolder.infoTextView.setText(info);
         Picasso.with(convertView.getContext())
                 .load(URL_PIC_PREFIX+item.bioguide_id+".jpg")
+                .resize(500, 500)
+                .centerCrop()
                 .placeholder(R.drawable.ic_launcher)
                 .error(R.drawable.ic_launcher)
                 .into(viewHolder.picImageView);
@@ -66,9 +68,9 @@ public class LegistorListAdapter extends BaseListAdapter<Legislator> {
         private TextView infoTextView;
 
         public ViewHolder(View view) {
-            picImageView = (ImageView) view.findViewById(R.id.list_item_legistor_picture);
-            nameTextView = (TextView) view.findViewById(R.id.list_item_legistor_name);
-            infoTextView = (TextView) view.findViewById(R.id.list_item_legistor_info);
+            picImageView = (ImageView) view.findViewById(R.id.list_item_legislator_picture);
+            nameTextView = (TextView) view.findViewById(R.id.list_item_legislator_name);
+            infoTextView = (TextView) view.findViewById(R.id.list_item_legislator_info);
         }
     }
 }

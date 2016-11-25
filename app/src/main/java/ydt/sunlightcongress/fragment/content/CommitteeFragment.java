@@ -1,9 +1,17 @@
 package ydt.sunlightcongress.fragment.content;
 
+import android.content.Intent;
+import android.view.View;
+import android.widget.AdapterView;
+
+import com.alibaba.fastjson.JSON;
+
 import ydt.sunlightcongress.adapter.BaseListAdapter;
 import ydt.sunlightcongress.adapter.CommitteeListAdapter;
 import ydt.sunlightcongress.data.DataSource;
 import ydt.sunlightcongress.data.model.Committee;
+import ydt.sunlightcongress.detail.BillDetailActivity;
+import ydt.sunlightcongress.detail.CommitteeDetailActivity;
 import ydt.sunlightcongress.fragment.BaseTabListFragment;
 
 /**
@@ -41,5 +49,12 @@ public class CommitteeFragment extends BaseTabListFragment<Committee> {
                 getListAdapter().update(getDataSource().getCommitteesByJoint());
                 break;
         }
+    }
+
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        Intent intent = new Intent(getActivity(), CommitteeDetailActivity.class);
+        intent.putExtra("data", JSON.toJSONString(getListAdapter().getItem(position)));
+        startActivity(intent);
     }
 }

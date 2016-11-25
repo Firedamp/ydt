@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:fitsSystemWindows="true">
+
+    <include layout="@layout/layout_toolbar"/>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="20dp"
+            android:gravity="center_horizontal"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginBottom="20dp"
+                android:gravity="right">
+
+                <ImageView
+                    android:id="@+id/detail_committee_icon_like"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:src="@drawable/ic_launcher"/>
+
+            </LinearLayout>
+
+            <include
+                android:id="@+id/detail_committee_item_id"
+                layout="@layout/layout_detail_item"/>
+
+            <include
+                android:id="@+id/detail_committee_item_name"
+                layout="@layout/layout_detail_item"/>
+
+            <include
+                android:id="@+id/detail_committee_item_chamber"
+                layout="@layout/layout_detail_item"/>
+
+            <include
+                android:id="@+id/detail_committee_item_parent"
+                layout="@layout/layout_detail_item"/>
+
+            <include
+                android:id="@+id/detail_committee_item_contract"
+                layout="@layout/layout_detail_item"/>
+
+            <include
+                android:id="@+id/detail_committee_item_office"
+                layout="@layout/layout_detail_item"/>
+
+        </LinearLayout>
+
+
+    </ScrollView>
+
+</LinearLayout>

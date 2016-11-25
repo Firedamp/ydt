@@ -23,7 +23,7 @@ import ydt.sunlightcongress.data.network.LegislatorResponseData;
 public class DataSource {
     public final static String ACTION_BILL_HAS_UPDATED = "ydt.sunlightcongress.action.bill_updated";
     public final static String ACTION_COMMITTEE_HAS_UPDATED = "ydt.sunlightcongress.action.committee_updated";
-    public final static String ACTION_LEGISTOR_HAS_UPDATED = "ydt.sunlightcongress.action.legistor_updated";
+    public final static String ACTION_LEGISLATOR_HAS_UPDATED = "ydt.sunlightcongress.action.legislator_updated";
 
     // DO NOT approach the fields directly, use get methods instead
     private List<Bill> bills;
@@ -72,7 +72,7 @@ public class DataSource {
                 if(data != null && data.results != null){
                     callListenerFetched(true);
                     legislators = data.results;
-                    LocalBroadcastManager.getInstance(mContext).sendBroadcast(new Intent(ACTION_LEGISTOR_HAS_UPDATED));
+                    LocalBroadcastManager.getInstance(mContext).sendBroadcast(new Intent(ACTION_LEGISLATOR_HAS_UPDATED));
                 }
                 else
                     callListenerFetched(false);
@@ -183,7 +183,7 @@ public class DataSource {
         return getCommittees();
     }
 
-    public List<Legislator> getFavoriteLegistor(){
+    public List<Legislator> getFavoriteLegislator(){
         return getLegislators();
     }
 

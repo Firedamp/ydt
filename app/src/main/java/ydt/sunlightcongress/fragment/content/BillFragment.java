@@ -1,9 +1,16 @@
 package ydt.sunlightcongress.fragment.content;
 
+import android.content.Intent;
+import android.view.View;
+import android.widget.AdapterView;
+
+import com.alibaba.fastjson.JSON;
+
 import ydt.sunlightcongress.adapter.BaseListAdapter;
 import ydt.sunlightcongress.adapter.BillListAdapter;
 import ydt.sunlightcongress.data.DataSource;
 import ydt.sunlightcongress.data.model.Bill;
+import ydt.sunlightcongress.detail.BillDetailActivity;
 import ydt.sunlightcongress.fragment.BaseTabListFragment;
 
 /**
@@ -39,5 +46,12 @@ public class BillFragment extends BaseTabListFragment<Bill> {
                 getListAdapter().update(getDataSource().getNewBills());
                 break;
         }
+    }
+
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        Intent intent = new Intent(getActivity(), BillDetailActivity.class);
+        intent.putExtra("data", JSON.toJSONString(getListAdapter().getItem(position)));
+        startActivity(intent);
     }
 }
