@@ -32,6 +32,7 @@ public class LegislatorFragment extends BaseTabListFragment<Legislator> {
 
     @Override
     public void updateData(){
+        getListView().smoothScrollToPosition(0);
         switch (getCurrentPostion()){
             default:
             case 0:

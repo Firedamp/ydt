@@ -54,7 +54,7 @@ public class MainActivity extends AppCompatActivity
     @Override
     public void onFetchingData() {
         if(mWaitingDialog == null)
-            mWaitingDialog = ProgressDialog.show(this, "Waiting", "Fetching Data from the Internet ...");
+            mWaitingDialog = ProgressDialog.show(this, "Waiting", "Fetching data from the Internet ...");
         mWaitingDialog.show();
     }
 

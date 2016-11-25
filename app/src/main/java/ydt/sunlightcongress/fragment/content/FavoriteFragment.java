@@ -50,6 +50,7 @@ public class FavoriteFragment extends BaseTabListFragment {
 
     @Override
     public void updateData() {
+        getListView().smoothScrollToPosition(0);
         switch (getCurrentPostion()){
             default:
             case 0:

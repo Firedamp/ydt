@@ -119,7 +119,7 @@ public class DataSource {
             return committees;
 
         callListenerFetching();
-        NetworkTask.fetchLegislators(new NetworkTask.NetWorkBusinessListener() {
+        NetworkTask.fetchomittees(new NetworkTask.NetWorkBusinessListener() {
             @Override
             public void onSucceed(String result) {
                 CommitteeResponseData data = JSON.parseObject(result, CommitteeResponseData.class);

@@ -1,5 +1,6 @@
 package ydt.sunlightcongress.adapter;
 
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,16 +27,24 @@ public class BillListAdapter extends BaseListAdapter<Bill>{
             viewHolder = (ViewHolder)convertView.getTag();
         }
 
-        viewHolder.nameTextView.setText(getItem(position).official_title);
+        Bill item = getItem(position);
+        viewHolder.idTextView.setText(item.bill_id);
+        viewHolder.titleTextView.setText(TextUtils.isEmpty(item.short_title) ?
+                                            item.official_title : item.short_title);
+        viewHolder.dateTextView.setText(item.introduced_on);
 
         return convertView;
     }
 
     private class ViewHolder{
-        private TextView nameTextView;
+        private TextView idTextView;
+        private TextView titleTextView;
+        private TextView dateTextView;
 
         public ViewHolder(View view){
-            nameTextView = (TextView)view.findViewById(R.id.list_item_bill_name);
+            idTextView = (TextView)view.findViewById(R.id.list_item_bill_id);
+            titleTextView = (TextView)view.findViewById(R.id.list_item_bill_title);
+            dateTextView = (TextView)view.findViewById(R.id.list_item_bill_date);
         }
     }
 }

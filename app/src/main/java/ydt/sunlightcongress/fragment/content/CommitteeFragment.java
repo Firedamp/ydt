@@ -28,6 +28,7 @@ public class CommitteeFragment extends BaseTabListFragment<Committee> {
 
     @Override
     public void updateData(){
+        getListView().smoothScrollToPosition(0);
         switch (getCurrentPostion()){
             default:
             case 0:

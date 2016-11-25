@@ -7,6 +7,8 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.squareup.picasso.Picasso;
+
 import ydt.sunlightcongress.R;
 import ydt.sunlightcongress.data.model.Legislator;
 
@@ -15,6 +17,8 @@ import ydt.sunlightcongress.data.model.Legislator;
  */
 
 public class LegistorListAdapter extends BaseListAdapter<Legislator> {
+    public static final String URL_PIC_PREFIX = "https://theunitedstates.io/images/congress/original/";
+
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         ViewHolder viewHolder;
@@ -47,7 +51,11 @@ public class LegistorListAdapter extends BaseListAdapter<Legislator> {
 
         viewHolder.nameTextView.setText(name);
         viewHolder.infoTextView.setText(info);
-
+        Picasso.with(convertView.getContext())
+                .load(URL_PIC_PREFIX+item.bioguide_id+".jpg")
+                .placeholder(R.drawable.ic_launcher)
+                .error(R.drawable.ic_launcher)
+                .into(viewHolder.picImageView);
 
         return convertView;
     }

@@ -25,16 +25,23 @@ public class CommitteeListAdapter extends BaseListAdapter<Committee>{
             viewHolder = (ViewHolder)convertView.getTag();
         }
 
-        viewHolder.nameTextView.setText(getItem(position).chamber);
+        Committee item = getItem(position);
+        viewHolder.idTextView.setText(item.committee_id);
+        viewHolder.nameTextView.setText(item.name);
+        viewHolder.chamberTextView.setText(item.chamber);
 
         return convertView;
     }
 
     private class ViewHolder{
+        private TextView idTextView;
         private TextView nameTextView;
+        private TextView chamberTextView;
 
         public ViewHolder(View view){
+            idTextView = (TextView)view.findViewById(R.id.list_item_committee_id);
             nameTextView = (TextView)view.findViewById(R.id.list_item_committee_name);
+            chamberTextView = (TextView)view.findViewById(R.id.list_item_committee_chamber);
         }
     }
 }
