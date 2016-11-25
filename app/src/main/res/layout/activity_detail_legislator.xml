@@ -98,6 +98,10 @@
                 android:id="@+id/detail_legislator_item_chamber"
                 layout="@layout/layout_detail_item"/>
 
+            <!--<include-->
+                <!--android:id="@+id/detail_legislator_contact"-->
+                <!--layout="@layout/layout_detail_item"/>-->
+
             <include
                 android:id="@+id/detail_legislator_item_start_term"
                 layout="@layout/layout_detail_item"/>

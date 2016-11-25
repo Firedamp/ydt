@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.TextView;
 
 import com.alibaba.fastjson.JSON;
 
@@ -49,6 +50,23 @@ public class CommitteeDetailActivity extends AppCompatActivity{
 
     private void initView(){
         //TODO
+        ((TextView)findViewById(R.id.detail_committee_item_id).findViewById(R.id.detail_item_key)).setText("Committee ID: ");
+        ((TextView)findViewById(R.id.detail_committee_item_id).findViewById(R.id.detail_item_value)).setText(committee.committee_id);
+
+        ((TextView)findViewById(R.id.detail_committee_item_name).findViewById(R.id.detail_item_key)).setText("Name: ");
+        ((TextView)findViewById(R.id.detail_committee_item_name).findViewById(R.id.detail_item_value)).setText(committee.name);
+
+        ((TextView)findViewById(R.id.detail_committee_item_chamber).findViewById(R.id.detail_item_key)).setText("Chamber: ");
+        ((TextView)findViewById(R.id.detail_committee_item_chamber).findViewById(R.id.detail_item_value)).setText(committee.chamber);
+
+        ((TextView)findViewById(R.id.detail_committee_item_parent).findViewById(R.id.detail_item_key)).setText("Parent Committee: ");
+        ((TextView)findViewById(R.id.detail_committee_item_parent).findViewById(R.id.detail_item_value)).setText(committee.parent_committee_id);
+
+//        ((TextView)findViewById(R.id.detail_committee_item_contract).findViewById(R.id.detail_item_key)).setText("Contact: ");
+//        ((TextView)findViewById(R.id.detail_committee_item_contract).findViewById(R.id.detail_item_value)).setText(committee.contact);
+
+//        ((TextView)findViewById(R.id.detail_committee_item_office).findViewById(R.id.detail_item_key)).setText("Office: ");
+//        ((TextView)findViewById(R.id.detail_committee_item_office).findViewById(R.id.detail_item_value)).setText(committee.office);
     }
 
 }
