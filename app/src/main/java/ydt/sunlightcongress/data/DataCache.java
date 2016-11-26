@@ -32,11 +32,9 @@ public class DataCache {
         try {
             File file = new File(mContext.getFilesDir(), FILE_NAME);
             FileOutputStream fos = new FileOutputStream(file, false);
-            PrintWriter printWriter = new PrintWriter(fos);
             String output = JSON.toJSONString(cache);
-            printWriter.print(output);
-            printWriter.flush();
-            printWriter.close();
+            fos.write(output.getBytes());
+            fos.close();
         }catch (Exception e){
             e.printStackTrace();
         }

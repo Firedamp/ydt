@@ -229,11 +229,11 @@ public class DataSource {
 
         favoriteBills = new ArrayList<Bill>();
 
-        if(mCache.favoriteBillId == null)
+        if(mCache.favoriteBillId == null || getBills() == null)
             return favoriteBills;
 
         for(String id : mCache.favoriteBillId){
-            for(Bill bill : mCache.bills){
+            for(Bill bill : getBills()){
                 if(id.equals(bill.bill_id)) {
                     favoriteBills.add(bill);
                     continue;
@@ -251,11 +251,11 @@ public class DataSource {
 
         favoriteCommittees = new ArrayList<Committee>();
 
-        if(mCache.favoritecommitteeId == null)
+        if(mCache.favoritecommitteeId == null || getCommittees() == null)
             return favoriteCommittees;
 
         for(String id : mCache.favoritecommitteeId){
-            for(Committee committee : mCache.committees){
+            for(Committee committee : getCommittees()){
                 if(id.equals(committee.committee_id)) {
                     favoriteCommittees.add(committee);
                     continue;
@@ -272,11 +272,11 @@ public class DataSource {
 
         favoriteLegistors = new ArrayList<Legislator>();
 
-        if(mCache.favoriteLegislatorId == null)
+        if(mCache.favoriteLegislatorId == null || getLegislators() == null)
             return favoriteLegistors;
 
         for(String id : mCache.favoriteLegislatorId){
-            for(Legislator legislator : mCache.legislators){
+            for(Legislator legislator : getLegislators()){
                 if(id.equals(legislator.bioguide_id)) {
                     favoriteLegistors.add(legislator);
                     continue;
