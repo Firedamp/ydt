@@ -70,6 +70,12 @@ public abstract class BaseTabListFragment<T> extends Fragment implements Indicat
     }
 
     @Override
+    public void onResume() {
+        super.onResume();
+        updateData();
+    }
+
+    @Override
     public void onIndexSelected(int position) {
         mCurrentPosition = position;
         updateData();
