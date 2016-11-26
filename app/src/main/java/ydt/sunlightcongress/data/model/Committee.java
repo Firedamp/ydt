@@ -10,4 +10,6 @@ public class Committee {
     public String chamber;
     public boolean subcommittee;
     public String parent_committee_id;
+    public String phone;
+    public String office;
 }

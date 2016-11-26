@@ -93,11 +93,11 @@ public class CommitteeDetailActivity extends AppCompatActivity{
         ((TextView)findViewById(R.id.detail_committee_item_parent).findViewById(R.id.detail_item_key)).setText("Parent Committee: ");
         ((TextView)findViewById(R.id.detail_committee_item_parent).findViewById(R.id.detail_item_value)).setText(committee.parent_committee_id);
 
-//        ((TextView)findViewById(R.id.detail_committee_item_contract).findViewById(R.id.detail_item_key)).setText("Contact: ");
-//        ((TextView)findViewById(R.id.detail_committee_item_contract).findViewById(R.id.detail_item_value)).setText(committee.contact);
+        ((TextView)findViewById(R.id.detail_committee_item_contract).findViewById(R.id.detail_item_key)).setText("Contact: ");
+        ((TextView)findViewById(R.id.detail_committee_item_contract).findViewById(R.id.detail_item_value)).setText(committee.phone);
 
-//        ((TextView)findViewById(R.id.detail_committee_item_office).findViewById(R.id.detail_item_key)).setText("Office: ");
-//        ((TextView)findViewById(R.id.detail_committee_item_office).findViewById(R.id.detail_item_value)).setText(committee.office);
+        ((TextView)findViewById(R.id.detail_committee_item_office).findViewById(R.id.detail_item_key)).setText("Office: ");
+        ((TextView)findViewById(R.id.detail_committee_item_office).findViewById(R.id.detail_item_value)).setText(committee.office);
     }
 
 }

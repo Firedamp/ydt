@@ -25,13 +25,6 @@
                 android:gravity="right">
 
                 <ImageView
-                    android:id="@+id/detail_legislator_icon_like"
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
-                    android:layout_marginRight="20dp"
-                    android:src="@drawable/ic_launcher"/>
-
-                <ImageView
                     android:id="@+id/detail_legislator_icon_facebook"
                     android:layout_width="30dp"
                     android:layout_height="30dp"
