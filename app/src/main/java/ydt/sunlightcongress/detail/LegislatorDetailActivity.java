@@ -11,11 +11,17 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.alibaba.fastjson.JSON;
 import com.squareup.picasso.Picasso;
+
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
 
 import ydt.sunlightcongress.R;
 import ydt.sunlightcongress.adapter.LegislatorListAdapter;
@@ -130,6 +136,26 @@ public class LegislatorDetailActivity extends AppCompatActivity implements View.
         ((ImageView)findViewById(R.id.detail_legislator_icon_party)).setImageResource(res);
         ((TextView)findViewById(R.id.detail_legislator_text_party)).setText(legislator.party);
 
+        Date startTerm;
+        Date stopTerm;
+        Date birthday;
+        try {
+            startTerm = new SimpleDateFormat("YYYY-MM-DD").parse(legislator.term_start);
+            stopTerm = new SimpleDateFormat("YYYY-MM-DD").parse(legislator.term_end);
+            birthday = new SimpleDateFormat("YYYY-MM-DD").parse(legislator.birthday);
+        }catch (Exception e){
+            startTerm = null;
+            stopTerm = null;
+            birthday = null;
+        }
+
+        if(startTerm != null && stopTerm != null){
+            long current = System.currentTimeMillis();
+            int term = (int) (100 * (current-startTerm.getTime()) / (stopTerm.getTime()-startTerm.getTime()));
+            ((ProgressBar)findViewById(R.id.detail_legislator_item_term_progress)).setProgress(term);
+            ((TextView)findViewById(R.id.detail_legislator_item_term_text_progress)).setText(term+"%");
+        }
+
         ((TextView)findViewById(R.id.detail_legislator_item_name).findViewById(R.id.detail_item_key)).setText("Name: ");
         ((TextView)findViewById(R.id.detail_legislator_item_name).findViewById(R.id.detail_item_value)).setText(legislator.first_name + " " + legislator.last_name);
 
@@ -139,17 +165,14 @@ public class LegislatorDetailActivity extends AppCompatActivity implements View.
         ((TextView)findViewById(R.id.detail_legislator_item_chamber).findViewById(R.id.detail_item_key)).setText("Chamber: ");
         ((TextView)findViewById(R.id.detail_legislator_item_chamber).findViewById(R.id.detail_item_value)).setText(legislator.chamber);
 
-        ((TextView)findViewById(R.id.detail_legislator_item_chamber).findViewById(R.id.detail_item_key)).setText("Contact : ");
+        ((TextView)findViewById(R.id.detail_legislator_item_chamber).findViewById(R.id.detail_item_key)).setText("Contact: ");
         ((TextView)findViewById(R.id.detail_legislator_item_chamber).findViewById(R.id.detail_item_value)).setText(legislator.phone);
 
         ((TextView)findViewById(R.id.detail_legislator_item_start_term).findViewById(R.id.detail_item_key)).setText("Start Term: ");
-        ((TextView)findViewById(R.id.detail_legislator_item_start_term).findViewById(R.id.detail_item_value)).setText(legislator.term_start);
+        ((TextView)findViewById(R.id.detail_legislator_item_start_term).findViewById(R.id.detail_item_value)).setText(startTerm == null ? "" : new SimpleDateFormat("MMM dd, YYYY", Locale.ENGLISH).format(startTerm));
 
         ((TextView)findViewById(R.id.detail_legislator_item_end_term).findViewById(R.id.detail_item_key)).setText("End Term: ");
-        ((TextView)findViewById(R.id.detail_legislator_item_end_term).findViewById(R.id.detail_item_value)).setText(legislator.term_end);
-
-        ((TextView)findViewById(R.id.detail_legislator_item_term).findViewById(R.id.detail_item_key)).setText("Term: ");
-        ((TextView)findViewById(R.id.detail_legislator_item_term).findViewById(R.id.detail_item_value)).setText("Need a progress bar! (now-start)/(end-start) * 100%");
+        ((TextView)findViewById(R.id.detail_legislator_item_end_term).findViewById(R.id.detail_item_value)).setText(stopTerm == null ? "" : new SimpleDateFormat("MMM dd, YYYY", Locale.ENGLISH).format(stopTerm));
 
         ((TextView)findViewById(R.id.detail_legislator_item_office).findViewById(R.id.detail_item_key)).setText("Office: ");
         ((TextView)findViewById(R.id.detail_legislator_item_office).findViewById(R.id.detail_item_value)).setText(legislator.office);
@@ -161,6 +184,6 @@ public class LegislatorDetailActivity extends AppCompatActivity implements View.
         ((TextView)findViewById(R.id.detail_legislator_item_fax).findViewById(R.id.detail_item_value)).setText(legislator.fax);
 
         ((TextView)findViewById(R.id.detail_legislator_item_birthday).findViewById(R.id.detail_item_key)).setText("Birthday: ");
-        ((TextView)findViewById(R.id.detail_legislator_item_birthday).findViewById(R.id.detail_item_value)).setText(legislator.birthday);
+        ((TextView)findViewById(R.id.detail_legislator_item_birthday).findViewById(R.id.detail_item_value)).setText(birthday == null ? "" : new SimpleDateFormat("MMM dd, YYYY", Locale.ENGLISH).format(birthday));
     }
 }
