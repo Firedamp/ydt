@@ -1,9 +1,12 @@
 package ydt.sunlightcongress.detail;
 
 import android.app.Activity;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -23,7 +26,7 @@ import ydt.sunlightcongress.data.model.Legislator;
  * Created by Caodongyao on 2016/11/24.
  */
 
-public class LegislatorDetailActivity extends AppCompatActivity{
+public class LegislatorDetailActivity extends AppCompatActivity implements View.OnClickListener {
     private Legislator legislator;
     private MenuItem menuItem;
 
@@ -60,6 +63,31 @@ public class LegislatorDetailActivity extends AppCompatActivity{
         return true;
     }
 
+    @Override
+    public void onClick(View v) {
+        if(v.getId() == R.id.detail_legislator_icon_twitter){
+            if(TextUtils.isEmpty(legislator.twitter_id)) {
+                Toast.makeText(this, "no twwiter", Toast.LENGTH_SHORT).show();
+                return;
+            }
+            startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.twwiter.com/"+legislator.twitter_id)));
+        }
+        else if(v.getId() == R.id.detail_legislator_icon_facebook){
+            if(TextUtils.isEmpty(legislator.facebook_id)) {
+                Toast.makeText(this, "no facebook", Toast.LENGTH_SHORT).show();
+                return;
+            }
+            startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.facebook.com/"+legislator.facebook_id)));
+        }
+        else if(v.getId() == R.id.detail_legislator_icon_earth){
+            if(TextUtils.isEmpty(legislator.twitter_id)) {
+                Toast.makeText(this, "no website", Toast.LENGTH_SHORT).show();
+                return;
+            }
+            startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(legislator.website)));
+        }
+    }
+
     private void updateMenu(){
         if(DataSource.getInstance().isFavoriteLegislator(legislator.bioguide_id))
             menuItem.setIcon(R.drawable.ic_star_full);
@@ -90,6 +118,16 @@ public class LegislatorDetailActivity extends AppCompatActivity{
                 .error(R.drawable.ic_launcher)
                 .into(picImageView);
 
+        findViewById(R.id.detail_legislator_icon_twitter).setOnClickListener(this);
+        findViewById(R.id.detail_legislator_icon_facebook).setOnClickListener(this);
+        findViewById(R.id.detail_legislator_icon_earth).setOnClickListener(this);
+
+        int res = R.drawable.ic_party_i;
+        if("r".equalsIgnoreCase(legislator.party))
+            res = R.drawable.ic_party_r;
+        else if("d".equalsIgnoreCase(legislator.party))
+            res = R.drawable.ic_party_d;
+        ((ImageView)findViewById(R.id.detail_legislator_icon_party)).setImageResource(res);
         ((TextView)findViewById(R.id.detail_legislator_text_party)).setText(legislator.party);
 
         ((TextView)findViewById(R.id.detail_legislator_item_name).findViewById(R.id.detail_item_key)).setText("Name: ");
@@ -125,6 +163,4 @@ public class LegislatorDetailActivity extends AppCompatActivity{
         ((TextView)findViewById(R.id.detail_legislator_item_birthday).findViewById(R.id.detail_item_key)).setText("Birthday: ");
         ((TextView)findViewById(R.id.detail_legislator_item_birthday).findViewById(R.id.detail_item_value)).setText(legislator.birthday);
     }
-
-
 }
