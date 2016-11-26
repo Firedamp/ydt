@@ -46,6 +46,7 @@ public class CommitteeDetailActivity extends AppCompatActivity{
                 onBackPressed();
             }
         });
+        
     }
 
     private void initView(){
