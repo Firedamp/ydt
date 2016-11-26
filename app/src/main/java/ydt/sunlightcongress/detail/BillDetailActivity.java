@@ -72,13 +72,13 @@ public class BillDetailActivity extends AppCompatActivity{
         ((TextView)findViewById(R.id.detail_bill_item_date).findViewById(R.id.detail_item_value)).setText(bill.introduced_on);
 
         ((TextView)findViewById(R.id.detail_bill_item_url).findViewById(R.id.detail_item_key)).setText("Congress URL: ");
-        ((TextView)findViewById(R.id.detail_bill_item_url).findViewById(R.id.detail_item_value)).setText(bill.last_version.urls.get("html"));
+        ((TextView)findViewById(R.id.detail_bill_item_url).findViewById(R.id.detail_item_value)).setText(bill.urls == null ? "" : bill.urls.get("congress"));
 
         ((TextView)findViewById(R.id.detail_bill_item_version).findViewById(R.id.detail_item_key)).setText("Version Status: ");
         ((TextView)findViewById(R.id.detail_bill_item_version).findViewById(R.id.detail_item_value)).setText(bill.last_version.version_name);
 
         ((TextView)findViewById(R.id.detail_bill_item_bill).findViewById(R.id.detail_item_key)).setText("Bill URL: ");
-        ((TextView)findViewById(R.id.detail_bill_item_bill).findViewById(R.id.detail_item_value)).setText(bill.last_version.urls.get("pdf"));
+        ((TextView)findViewById(R.id.detail_bill_item_bill).findViewById(R.id.detail_item_value)).setText(bill.urls == null ? "" : bill.urls.get("html"));
 
 
 
