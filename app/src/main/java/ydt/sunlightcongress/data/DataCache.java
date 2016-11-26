@@ -20,8 +20,6 @@ import ydt.sunlightcongress.data.cache.Cache;
 public class DataCache {
     private final static String FILE_NAME = "hadasewdsd";
 
-    private boolean hasRead = false;
-
     private Context mContext;
 
     public DataCache(Context context){

@@ -4,12 +4,16 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.alibaba.fastjson.JSON;
 
 import ydt.sunlightcongress.R;
+import ydt.sunlightcongress.data.DataSource;
 import ydt.sunlightcongress.data.model.Committee;
 import ydt.sunlightcongress.data.model.Legislator;
 
@@ -19,6 +23,7 @@ import ydt.sunlightcongress.data.model.Legislator;
 
 public class CommitteeDetailActivity extends AppCompatActivity{
     private Committee committee;
+    private MenuItem menuItem;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,6 +40,31 @@ public class CommitteeDetailActivity extends AppCompatActivity{
 
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.activity_detail_menu, menu);
+        menuItem = menu.findItem(R.id.detail_menu_like);
+        updateMenu();
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if(DataSource.getInstance().setFacoriteCommittee(committee.committee_id)){
+            updateMenu();
+        }
+        else
+            Toast.makeText(this, "Failed !!!!! ", Toast.LENGTH_SHORT).show();
+        return true;
+    }
+
+    private void updateMenu(){
+        if(DataSource.getInstance().isFavoriteCommittee(committee.committee_id))
+            menuItem.setIcon(R.drawable.ic_star_full);
+        else
+            menuItem.setIcon(R.drawable.ic_star_empty);
+    }
+
     private void initToolbar(){
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -46,7 +76,7 @@ public class CommitteeDetailActivity extends AppCompatActivity{
                 onBackPressed();
             }
         });
-        
+
     }
 
     private void initView(){

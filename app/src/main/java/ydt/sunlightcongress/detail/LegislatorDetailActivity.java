@@ -9,12 +9,14 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.alibaba.fastjson.JSON;
 import com.squareup.picasso.Picasso;
 
 import ydt.sunlightcongress.R;
 import ydt.sunlightcongress.adapter.LegislatorListAdapter;
+import ydt.sunlightcongress.data.DataSource;
 import ydt.sunlightcongress.data.model.Legislator;
 
 /**
@@ -23,6 +25,7 @@ import ydt.sunlightcongress.data.model.Legislator;
 
 public class LegislatorDetailActivity extends AppCompatActivity{
     private Legislator legislator;
+    private MenuItem menuItem;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,13 +45,26 @@ public class LegislatorDetailActivity extends AppCompatActivity{
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.activity_detail_menu, menu);
+        menuItem = menu.findItem(R.id.detail_menu_like);
+        updateMenu();
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        item.setIcon(R.drawable.ic_star_full);
+        if(DataSource.getInstance().setFacoriteLegislator(legislator.bioguide_id)){
+            updateMenu();
+        }
+        else
+            Toast.makeText(this, "Failed !!!!! ", Toast.LENGTH_SHORT).show();
         return true;
+    }
+
+    private void updateMenu(){
+        if(DataSource.getInstance().isFavoriteLegislator(legislator.bioguide_id))
+            menuItem.setIcon(R.drawable.ic_star_full);
+        else
+            menuItem.setIcon(R.drawable.ic_star_empty);
     }
 
     private void initToolbar(){
@@ -108,6 +124,7 @@ public class LegislatorDetailActivity extends AppCompatActivity{
 
         ((TextView)findViewById(R.id.detail_legislator_item_birthday).findViewById(R.id.detail_item_key)).setText("Birthday: ");
         ((TextView)findViewById(R.id.detail_legislator_item_birthday).findViewById(R.id.detail_item_value)).setText(legislator.birthday);
-
     }
+
+
 }

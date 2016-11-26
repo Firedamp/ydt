@@ -4,12 +4,16 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.alibaba.fastjson.JSON;
 
 import ydt.sunlightcongress.R;
+import ydt.sunlightcongress.data.DataSource;
 import ydt.sunlightcongress.data.model.Bill;
 import ydt.sunlightcongress.data.model.Committee;
 
@@ -19,6 +23,8 @@ import ydt.sunlightcongress.data.model.Committee;
 
 public class BillDetailActivity extends AppCompatActivity{
     private Bill bill;
+
+    private MenuItem menuItem;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,6 +39,31 @@ public class BillDetailActivity extends AppCompatActivity{
 
         initView();
 
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.activity_detail_menu, menu);
+        menuItem = menu.findItem(R.id.detail_menu_like);
+        updateMenu();
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if(DataSource.getInstance().setFacoriteBill(bill.bill_id)){
+            updateMenu();
+        }
+        else
+            Toast.makeText(this, "Failed !!!!! ", Toast.LENGTH_SHORT).show();
+        return true;
+    }
+
+    private void updateMenu(){
+        if(DataSource.getInstance().isFavoriteBill(bill.bill_id))
+            menuItem.setIcon(R.drawable.ic_star_full);
+        else
+            menuItem.setIcon(R.drawable.ic_star_empty);
     }
 
     private void initToolbar(){
@@ -75,7 +106,7 @@ public class BillDetailActivity extends AppCompatActivity{
         ((TextView)findViewById(R.id.detail_bill_item_url).findViewById(R.id.detail_item_value)).setText(bill.urls == null ? "" : bill.urls.get("congress"));
 
         ((TextView)findViewById(R.id.detail_bill_item_version).findViewById(R.id.detail_item_key)).setText("Version Status: ");
-        ((TextView)findViewById(R.id.detail_bill_item_version).findViewById(R.id.detail_item_value)).setText(bill.last_version.version_name);
+        ((TextView)findViewById(R.id.detail_bill_item_version).findViewById(R.id.detail_item_value)).setText(bill.last_version == null ? "" : bill.last_version.version_name);
 
         ((TextView)findViewById(R.id.detail_bill_item_bill).findViewById(R.id.detail_item_key)).setText("Bill URL: ");
         ((TextView)findViewById(R.id.detail_bill_item_bill).findViewById(R.id.detail_item_value)).setText(bill.urls == null ? "" : bill.urls.get("html"));

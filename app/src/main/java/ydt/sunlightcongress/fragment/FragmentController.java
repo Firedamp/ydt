@@ -41,6 +41,8 @@ public class FragmentController {
         fragment = getLoadedFragment(tag);
         if (fragment != null){
             transaction.show(fragment);
+            if(fragment instanceof BaseTabListFragment)
+                ((BaseTabListFragment) fragment).updateData();
         }
         else{
             transaction.add(mContainerId, mAdapter.createFragment(tag), tag);

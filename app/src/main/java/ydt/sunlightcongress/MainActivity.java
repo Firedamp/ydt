@@ -11,6 +11,7 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import ydt.sunlightcongress.data.DataSource;
 import ydt.sunlightcongress.fragment.FragmentController;
@@ -26,7 +27,6 @@ public class MainActivity extends AppCompatActivity
     private ProgressDialog mWaitingDialog;
 
     private FragmentController mFragmentController;
-    private DataSource mDataSource;
 
     public enum Page {
         LEGISLATORS,
@@ -38,14 +38,14 @@ public class MainActivity extends AppCompatActivity
     @Override
     public Fragment createFragment(String tag) {
         if (Page.LEGISLATORS.name().equals(tag)){
-            return new LegislatorFragment().setDataSource(mDataSource);
+            return new LegislatorFragment();
         }
         else if (Page.FAVORITE.name().equals(tag))
-            return new FavoriteFragment().setDataSource(mDataSource);
+            return new FavoriteFragment();
         else if (Page.COMMITTEES.name().equals(tag))
-            return new CommitteeFragment().setDataSource(mDataSource);
+            return new CommitteeFragment();
         else if (Page.BILLS.name().equals(tag))
-            return new BillFragment().setDataSource(mDataSource);
+            return new BillFragment();
         return null;
     }
 
@@ -61,7 +61,7 @@ public class MainActivity extends AppCompatActivity
         if(mWaitingDialog != null)
             mWaitingDialog.dismiss();
         if(!succeed)
-            Snackbar.make(mDrawerLayout, "Failed to fetch data from the Internet", Snackbar.LENGTH_LONG).show();
+            Toast.makeText(this, "Failed to fetch data from the Internet", Toast.LENGTH_SHORT).show();
     }
 
     @Override
@@ -82,8 +82,7 @@ public class MainActivity extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
         navigationView.setCheckedItem(R.id.nav_legislators);
 
-        mDataSource = new DataSource(this);
-        mDataSource.setOnPendingDataListener(this);
+        DataSource.getInstance().setOnPendingDataListener(this);
 
         mFragmentController = new FragmentController(getFragmentManager(), R.id.main_container, this);
         mFragmentController.go(Page.LEGISLATORS.name());
