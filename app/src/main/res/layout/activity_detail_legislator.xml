@@ -30,7 +30,7 @@
                     android:layout_height="30dp"
                     android:layout_marginRight="20dp"
                     android:scaleType="centerCrop"
-                    android:src="@drawable/ic_launcher"/>
+                    android:src="@drawable/ic_detail_f"/>
 
                 <ImageView
                     android:id="@+id/detail_legislator_icon_twitter"
@@ -38,14 +38,14 @@
                     android:layout_height="30dp"
                     android:layout_marginRight="20dp"
                     android:scaleType="centerCrop"
-                    android:src="@drawable/ic_launcher"/>
+                    android:src="@drawable/ic_detail_t"/>
 
                 <ImageView
                     android:id="@+id/detail_legislator_icon_earth"
                     android:layout_width="30dp"
                     android:layout_height="30dp"
                     android:scaleType="centerCrop"
-                    android:src="@drawable/ic_launcher"/>
+                    android:src="@drawable/ic_detail_w"/>
 
             </LinearLayout>
 
