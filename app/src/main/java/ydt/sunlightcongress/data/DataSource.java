@@ -8,7 +8,7 @@ import com.alibaba.fastjson.JSON;
 
 import java.util.List;
 
-import ydt.sunlightcongress.data.NetworkTask;
+import ydt.sunlightcongress.data.cache.Cache;
 import ydt.sunlightcongress.data.model.Bill;
 import ydt.sunlightcongress.data.model.Committee;
 import ydt.sunlightcongress.data.model.Legislator;
@@ -26,16 +26,17 @@ public class DataSource {
     public final static String ACTION_LEGISLATOR_HAS_UPDATED = "ydt.sunlightcongress.action.legislator_updated";
 
     // DO NOT approach the fields directly, use get methods instead
-    private List<Bill> bills;
-    private List<Committee> committees;
-    private List<Legislator> legislators;
+    private Cache mCache;
 
     private OnPendingDataListener mListener;
 
     private Context mContext;
+    private DataCache mFileCache;
 
     public DataSource(Context context){
         this.mContext = context;
+        this.mFileCache = new DataCache(context);
+        this.mCache = new Cache();
     }
 
     public void setOnPendingDataListener(OnPendingDataListener listener){
@@ -43,9 +44,9 @@ public class DataSource {
     }
 
     public void clear(){
-        bills = null;
-        committees = null;
-        legislators = null;
+        mCache.bills = null;
+        mCache.committees = null;
+        mCache.legislators = null;
     }
 
     protected void callListenerFetched(boolean succeed){
@@ -61,8 +62,13 @@ public class DataSource {
     // if the data is null, data source will to fetch data from the Internet
     // and when the data is fetched successfully, a broadcast will be sent
     protected List<Legislator> getLegislators(){
-        if(legislators != null)
-            return legislators;
+        if(mCache.legislators != null)
+            return mCache.legislators;
+
+        mCache = mFileCache.get();
+
+        if(mCache.legislators != null)
+            return mCache.legislators;
 
         callListenerFetching();
         NetworkTask.fetchLegislators(new NetworkTask.NetWorkBusinessListener() {
@@ -71,7 +77,8 @@ public class DataSource {
                 LegislatorResponseData data = JSON.parseObject(result, LegislatorResponseData.class);
                 if(data != null && data.results != null){
                     callListenerFetched(true);
-                    legislators = data.results;
+                    mCache.legislators = data.results;
+                    mFileCache.put(mCache);
                     LocalBroadcastManager.getInstance(mContext).sendBroadcast(new Intent(ACTION_LEGISLATOR_HAS_UPDATED));
                 }
                 else
@@ -88,8 +95,13 @@ public class DataSource {
     }
 
     protected List<Bill> getBills(){
-        if(bills != null)
-            return bills;
+        if(mCache.bills != null)
+            return mCache.bills;
+
+        mCache = mFileCache.get();
+
+        if(mCache.bills != null)
+            return mCache.bills;
 
         callListenerFetching();
         NetworkTask.fetchBills(new NetworkTask.NetWorkBusinessListener() {
@@ -98,7 +110,8 @@ public class DataSource {
                 BillResponseData data = JSON.parseObject(result, BillResponseData.class);
                 if(data != null && data.results != null){
                     callListenerFetched(true);
-                    bills = data.results;
+                    mCache.bills = data.results;
+                    mFileCache.put(mCache);
                     LocalBroadcastManager.getInstance(mContext).sendBroadcast(new Intent(ACTION_BILL_HAS_UPDATED));
                 }
                 else
@@ -115,8 +128,13 @@ public class DataSource {
     }
 
     protected List<Committee> getCommittees(){
-        if(committees != null)
-            return committees;
+        if(mCache.committees != null)
+            return mCache.committees;
+
+        mCache = mFileCache.get();
+
+        if(mCache.committees != null)
+            return mCache.committees;
 
         callListenerFetching();
         NetworkTask.fetchomittees(new NetworkTask.NetWorkBusinessListener() {
@@ -125,7 +143,8 @@ public class DataSource {
                 CommitteeResponseData data = JSON.parseObject(result, CommitteeResponseData.class);
                 if(data != null && data.results != null){
                     callListenerFetched(true);
-                    committees = data.results;
+                    mCache.committees = data.results;
+                    mFileCache.put(mCache);
                     LocalBroadcastManager.getInstance(mContext).sendBroadcast(new Intent(ACTION_COMMITTEE_HAS_UPDATED));
                 }
                 else
@@ -141,8 +160,8 @@ public class DataSource {
         return null;
     }
 
-    //TODO implement following method to sort data you want, it's better if there is a cache
-    //TODO if you has a data cache, BE SURE to clear it when complete data is updated
+    //TODO implement following method to sort data you want, it's better if there is a Cache
+    //TODO if you has a data Cache, BE SURE to clear it when complete data is updated
     public List<Legislator> getLegislatorsByState(){
         return getLegislators();
     }

@@ -49,13 +49,13 @@
                 android:id="@+id/detail_committee_item_parent"
                 layout="@layout/layout_detail_item"/>
 
-            <!--<include-->
-                <!--android:id="@+id/detail_committee_item_contract"-->
-                <!--layout="@layout/layout_detail_item"/>-->
+            <include
+                android:id="@+id/detail_committee_item_contract"
+                layout="@layout/layout_detail_item"/>
 
-            <!--<include-->
-                <!--android:id="@+id/detail_committee_item_office"-->
-                <!--layout="@layout/layout_detail_item"/>-->
+            <include
+                android:id="@+id/detail_committee_item_office"
+                layout="@layout/layout_detail_item"/>
 
         </LinearLayout>
 
