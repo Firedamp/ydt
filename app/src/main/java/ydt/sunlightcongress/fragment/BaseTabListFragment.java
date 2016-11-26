@@ -25,18 +25,12 @@ import ydt.sunlightcongress.view.IndicatorView;
 
 public abstract class BaseTabListFragment<T> extends Fragment implements IndicatorView.OnIndexSelectListener, AdapterView.OnItemClickListener{
     private BaseListAdapter<T> mAdapter;
-    private DataSource mDataSource;
 
     private IndicatorView mIndicator;
     private ListView mListView;
 
     private int mCurrentPosition = -1;
     private BroadcastReceiver mReceiver;
-
-    public Fragment setDataSource(DataSource dataSource){
-        this.mDataSource = dataSource;
-        return this;
-    }
 
     @Nullable
     @Override
@@ -86,7 +80,7 @@ public abstract class BaseTabListFragment<T> extends Fragment implements Indicat
     }
 
     public DataSource getDataSource(){
-        return mDataSource;
+        return DataSource.getInstance();
     }
 
     public BaseListAdapter<T> getListAdapter(){
