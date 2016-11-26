@@ -2,6 +2,7 @@ package ydt.sunlightcongress;
 
 import android.app.Fragment;
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.Snackbar;
@@ -117,7 +118,7 @@ public class MainActivity extends AppCompatActivity
             mFragmentController.go(Page.FAVORITE.name());
             setTitle("favorites");
         } else if (id == R.id.nav_aboutme) {
-            ProgressDialog.show(this, "aaaaa", "aaaaaaa");
+            startActivity(new Intent(this, AboutActivity.class));
         }
 
         mDrawerLayout.closeDrawer(GravityCompat.START);
