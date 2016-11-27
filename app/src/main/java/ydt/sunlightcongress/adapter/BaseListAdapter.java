@@ -6,11 +6,13 @@ import android.widget.BaseAdapter;
 
 import java.util.List;
 
+import ydt.sunlightcongress.data.model.Model;
+
 /**
  * Created by Caodongyao on 2016/11/23.
  */
 
-public abstract class BaseListAdapter<T> extends BaseAdapter{
+public abstract class BaseListAdapter<T extends Model> extends BaseAdapter{
     private List<T> data;
 
     @Override

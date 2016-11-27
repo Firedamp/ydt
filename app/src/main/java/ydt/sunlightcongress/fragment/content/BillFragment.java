@@ -6,6 +6,8 @@ import android.widget.AdapterView;
 
 import com.alibaba.fastjson.JSON;
 
+import java.util.List;
+
 import ydt.sunlightcongress.adapter.BaseListAdapter;
 import ydt.sunlightcongress.adapter.BillListAdapter;
 import ydt.sunlightcongress.data.DataSource;
@@ -35,17 +37,19 @@ public class BillFragment extends BaseTabListFragment<Bill> {
     }
 
     @Override
-    public void updateData(){
-        getListView().smoothScrollToPosition(0);
+    protected List<Bill> getData() {
         switch (getCurrentPostion()){
             default:
             case 0:
-                getListAdapter().update(getDataSource().getActiveBills());
-                break;
+                return getDataSource().getActiveBills();
             case 1:
-                getListAdapter().update(getDataSource().getNewBills());
-                break;
+                return getDataSource().getNewBills();
         }
+    }
+
+    @Override
+    protected String getItemIndex(Bill bill) {
+        return bill.bill_id.charAt(0)+"";
     }
 
     @Override

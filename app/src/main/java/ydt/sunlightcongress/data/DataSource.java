@@ -87,6 +87,7 @@ public class DataSource {
 
     // if the data is null, data source will to fetch data from the Internet
     // and when the data is fetched successfully, a broadcast will be sent
+    // you should get care of the broadcast and then refresh data when received
     protected List<Legislator> getLegislators(){
         if(mCache.legislators != null)
             return mCache.legislators;

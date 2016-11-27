@@ -6,7 +6,7 @@ import java.util.Map;
  * Created by Caodongyao on 2016/11/24.
  */
 
-public class Bill {
+public class Bill implements Model{
     public String bill_id;
     public String bill_type;
     public int number;
@@ -29,7 +29,6 @@ public class Bill {
     public Map<String, String> urls;
     public String last_version_on;
     public LastVersion last_version;
-
 
 
     public static class Sponsor{

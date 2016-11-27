@@ -6,6 +6,8 @@ import android.widget.AdapterView;
 
 import com.alibaba.fastjson.JSON;
 
+import java.util.List;
+
 import ydt.sunlightcongress.adapter.BaseListAdapter;
 import ydt.sunlightcongress.adapter.LegislatorListAdapter;
 import ydt.sunlightcongress.data.DataSource;
@@ -19,35 +21,36 @@ import ydt.sunlightcongress.fragment.BaseTabListFragment;
 
 public class LegislatorFragment extends BaseTabListFragment<Legislator> {
     @Override
-    public BaseListAdapter<Legislator> createAdapter() {
+    protected BaseListAdapter<Legislator> createAdapter() {
         return new LegislatorListAdapter();
     }
 
     @Override
-    public String[] getTitles() {
+    protected String[] getTitles() {
         return new String[]{"By States", "House", "Senate"};
     }
 
     @Override
-    public String[] getIntentFilterActions() {
+    protected String[] getIntentFilterActions() {
         return new String[]{DataSource.ACTION_LEGISLATOR_HAS_UPDATED};
     }
 
     @Override
-    public void updateData(){
-        getListView().smoothScrollToPosition(0);
+    protected List<Legislator> getData() {
         switch (getCurrentPostion()){
             default:
             case 0:
-                getListAdapter().update(getDataSource().getLegislatorsByState());
-                break;
+                return getDataSource().getLegislatorsByState();
             case 1:
-                getListAdapter().update(getDataSource().getLegislatorsByHouse());
-                break;
+                return getDataSource().getLegislatorsByHouse();
             case 2:
-                getListAdapter().update(getDataSource().getLegislatorsBySenate());
-                break;
+                return getDataSource().getLegislatorsBySenate();
         }
+    }
+
+    @Override
+    protected String getItemIndex(Legislator legislator) {
+        return legislator.bioguide_id.charAt(0)+"";
     }
 
     @Override

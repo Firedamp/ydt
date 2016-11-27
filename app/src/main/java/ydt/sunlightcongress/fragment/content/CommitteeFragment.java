@@ -6,6 +6,8 @@ import android.widget.AdapterView;
 
 import com.alibaba.fastjson.JSON;
 
+import java.util.List;
+
 import ydt.sunlightcongress.adapter.BaseListAdapter;
 import ydt.sunlightcongress.adapter.CommitteeListAdapter;
 import ydt.sunlightcongress.data.DataSource;
@@ -35,20 +37,21 @@ public class CommitteeFragment extends BaseTabListFragment<Committee> {
     }
 
     @Override
-    public void updateData(){
-        getListView().smoothScrollToPosition(0);
+    protected List<Committee> getData() {
         switch (getCurrentPostion()){
             default:
             case 0:
-                getListAdapter().update(getDataSource().getCommitteesByHouse());
-                break;
+                return getDataSource().getCommitteesByHouse();
             case 1:
-                getListAdapter().update(getDataSource().getCommitteesBySenate());
-                break;
+                return getDataSource().getCommitteesBySenate();
             case 2:
-                getListAdapter().update(getDataSource().getCommitteesByJoint());
-                break;
+                return getDataSource().getCommitteesByJoint();
         }
+    }
+
+    @Override
+    protected String getItemIndex(Committee committee) {
+        return committee.committee_id.charAt(0)+"";
     }
 
     @Override

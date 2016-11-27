@@ -4,7 +4,7 @@ package ydt.sunlightcongress.data.model;
  * Created by Caodongyao on 2016/11/24.
  */
 
-public class Legislator {
+public class Legislator implements Model{
     public String bioguide_id;
     public boolean in_office;
     public String thomas_id;

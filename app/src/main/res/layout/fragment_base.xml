@@ -1,17 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
 
     <ydt.sunlightcongress.view.IndicatorView
         android:id="@+id/fragment_base_indicator"
+        android:layout_alignParentTop="true"
         android:layout_width="match_parent"
         android:layout_height="50dp"/>
 
+    <ydt.sunlightcongress.view.SideBar
+        android:id="@+id/fragment_base_sidebar"
+        android:layout_alignParentRight="true"
+        android:layout_below="@id/fragment_base_indicator"
+        android:layout_width="30dp"
+        android:layout_height="match_parent" />
+
     <ListView
         android:id="@+id/fragment_base_list"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@id/fragment_base_indicator"
+        android:layout_toLeftOf="@id/fragment_base_sidebar"
+        android:background="@android:color/white"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
 
-</LinearLayout>
+    <TextView
+        android:id="@+id/fragment_base_index"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:textColor="@color/colorAccent"
+        android:textSize="80dp"/>
+
+</RelativeLayout>

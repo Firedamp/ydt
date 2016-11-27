@@ -13,21 +13,32 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.TextView;
+
+import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
 
 import ydt.sunlightcongress.R;
 import ydt.sunlightcongress.adapter.BaseListAdapter;
 import ydt.sunlightcongress.data.DataSource;
+import ydt.sunlightcongress.data.model.Model;
 import ydt.sunlightcongress.view.IndicatorView;
+import ydt.sunlightcongress.view.SideBar;
 
 /**
  * Created by Caodongyao on 2016/11/23.
  */
 
-public abstract class BaseTabListFragment<T> extends Fragment implements IndicatorView.OnIndexSelectListener, AdapterView.OnItemClickListener{
+public abstract class BaseTabListFragment<T extends Model> extends Fragment implements IndicatorView.OnIndexSelectListener, AdapterView.OnItemClickListener, SideBar.OnIndexChangeListener{
     private BaseListAdapter<T> mAdapter;
 
     private IndicatorView mIndicator;
     private ListView mListView;
+    private SideBar mSidebar;
+    private TextView mIndexText;
+    private Map<String, Integer> mIndexMap;
 
     private int mCurrentPosition = -1;
     private BroadcastReceiver mReceiver;
@@ -37,10 +48,16 @@ public abstract class BaseTabListFragment<T> extends Fragment implements Indicat
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.fragment_base, container, false);
+        mIndexMap = new LinkedHashMap<String, Integer>();
 
         mListView = (ListView)view.findViewById(R.id.fragment_base_list);
         mListView.setOnItemClickListener(this);
         mIndicator = (IndicatorView)view.findViewById(R.id.fragment_base_indicator);
+        mIndexText = (TextView)view.findViewById(R.id.fragment_base_index);
+        mSidebar = (SideBar)view.findViewById(R.id.fragment_base_sidebar);
+        mSidebar.setOnIndexChangeListener(this);
+        mSidebar.setVisibility(View.GONE);
+        mIndexText.setVisibility(View.GONE);
 
         mAdapter = createAdapter();
         if(mAdapter != null)
@@ -52,7 +69,7 @@ public abstract class BaseTabListFragment<T> extends Fragment implements Indicat
         mReceiver = new BroadcastReceiver(){
             @Override
             public void onReceive(Context context, Intent intent) {
-                updateData();
+                updateList();
             }
         };
         IntentFilter intentFilter = new IntentFilter();
@@ -72,13 +89,34 @@ public abstract class BaseTabListFragment<T> extends Fragment implements Indicat
     @Override
     public void onResume() {
         super.onResume();
-        updateData();
+        updateList();
     }
 
     @Override
-    public void onIndexSelected(int position) {
+    public void onIndicatorIndexSelected(int position) {
         mCurrentPosition = position;
-        updateData();
+        updateList();
+    }
+
+    @Override
+    public void onSidebarIndexChange(String index) {
+        mIndexText.setText(index);
+        if(index == null)
+            mIndexText.setVisibility(View.GONE);
+        else {
+            mIndexText.setVisibility(View.VISIBLE);
+            mListView.setSelection(mIndexMap.get(index));
+//            mListView.smoothScrollToPosition(mIndexMap.get(index));
+        }
+
+    }
+
+    public void setSideBarIndex(String[] index){
+        mSidebar.setIndex(index);
+        if(index == null || index.length == 0)
+            mSidebar.setVisibility(View.GONE);
+        else
+            mSidebar.setVisibility(View.VISIBLE);
     }
 
     public int getCurrentPostion(){
@@ -97,8 +135,29 @@ public abstract class BaseTabListFragment<T> extends Fragment implements Indicat
         return mListView;
     }
 
-    public abstract BaseListAdapter<T> createAdapter();
-    public abstract String[] getTitles();
-    public abstract String[] getIntentFilterActions();
-    public abstract void updateData();
+    public void updateList(){
+        if(mAdapter != null)
+            mAdapter.update(getData());
+        mListView.setSelection(0);
+
+        mIndexMap.clear();
+        int i = 0;
+        if(getData() != null) {
+            for (T t : getData()) {
+                if (mIndexMap.containsKey(getItemIndex(t)))
+                    continue;
+                else
+                    mIndexMap.put(getItemIndex(t), i);
+                i++;
+            }
+        }
+
+        setSideBarIndex(mIndexMap.keySet().toArray(new String[mIndexMap.size()]));
+    }
+
+    protected abstract BaseListAdapter<T> createAdapter();
+    protected abstract String[] getTitles();
+    protected abstract String[] getIntentFilterActions();
+    protected abstract List<T> getData();
+    protected abstract String getItemIndex(T t);
 }

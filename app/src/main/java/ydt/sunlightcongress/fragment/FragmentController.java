@@ -42,7 +42,7 @@ public class FragmentController {
         if (fragment != null){
             transaction.show(fragment);
             if(fragment instanceof BaseTabListFragment)
-                ((BaseTabListFragment) fragment).updateData();
+                ((BaseTabListFragment) fragment).updateList();
         }
         else{
             transaction.add(mContainerId, mAdapter.createFragment(tag), tag);

@@ -104,7 +104,7 @@ public class IndicatorView extends FrameLayout {
             return;
 
         if (mListener != null)
-            mListener.onIndexSelected(index);
+            mListener.onIndicatorIndexSelected(index);
 
         if (mAnimator != null)
             mAnimator.cancel();
@@ -117,7 +117,7 @@ public class IndicatorView extends FrameLayout {
 
 
     public interface OnIndexSelectListener {
-        void onIndexSelected(int position);
+        void onIndicatorIndexSelected(int position);
     }
 
 }
