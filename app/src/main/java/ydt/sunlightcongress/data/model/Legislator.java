@@ -35,4 +35,6 @@ public class Legislator {
     public int district = -1;
     public String oc_email;
     public String ocd_id;
+    public String facebook_id;
+    public String twitter_id;
 }

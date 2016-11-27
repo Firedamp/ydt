@@ -28,6 +28,8 @@
 
         <activity android:name=".detail.BillDetailActivity" />
 
+        <activity android:name=".AboutActivity" />
+
     </application>
 
 </manifest>
