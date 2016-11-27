@@ -8,6 +8,8 @@ import android.text.TextUtils;
 import com.alibaba.fastjson.JSON;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 import ydt.sunlightcongress.data.cache.Cache;
@@ -33,6 +35,17 @@ public class DataSource {
     private List<Bill> favoriteBills;
     private List<Committee> favoriteCommittees;
     private List<Legislator> favoriteLegistors;
+
+    private List<Legislator> dataState;
+    private List<Legislator> dataHouse;
+    private List<Legislator> dataSenate;
+
+    private List<Bill> billActive;
+    private List<Bill> billNew;
+
+    private List<Committee> committeeHouse;
+    private List<Committee> committeeSenate;
+    private List<Committee> committeeJoint;
 
     private OnPendingDataListener mListener;
 
@@ -73,6 +86,7 @@ public class DataSource {
         favoriteBills = null;
         favoriteCommittees = null;
         favoriteLegistors = null;
+
     }
 
     protected void callListenerFetched(boolean succeed){
@@ -119,6 +133,120 @@ public class DataSource {
         });
 
         return null;
+    }
+
+    protected List<Legislator> getLegislatorsStates(){
+        if(dataState != null)
+            return dataState;
+
+
+        if(getLegislators() == null)
+            return null;
+
+        dataState = new ArrayList<Legislator>(getLegislators());
+        Collections.sort(dataState, new Comparator<Legislator>() {
+            @Override
+            public int compare(Legislator o1, Legislator o2) {
+                int compareOutput = o1.state_name.compareTo(o2.state_name);
+                if ( compareOutput == 0 ) {
+                    int compareName = o1.last_name.compareTo(o2.last_name);
+                    if(compareName == 0) {
+                        return 0;
+                    }
+                    else if(compareName > 0){
+                        return 1;
+                    }
+                    else return -1;
+                }
+                else if(compareOutput > 0){
+                    return  1;
+                }
+                else return -1;
+            }
+        });
+        return dataState;
+    }
+
+    protected List<Legislator> getLegislatorsHouse(){
+        if(dataHouse != null)
+            return  dataHouse;
+//        dataHouse = new ArrayList<Legislator>(dataState);
+//        for(int i = 0; i < dataHouse.size(); i++){
+//            if(dataHouse.get(i).chamber == "senate"){
+//                dataHouse.remove(i);
+//                i--;
+//            }
+//        }
+        if(getLegislators() == null)
+            return null;
+        dataHouse = new ArrayList<Legislator>(getLegislators());
+        for(int i = 0; i < dataHouse.size(); i++){
+            if(dataHouse.get(i).chamber == "senate"){
+                dataHouse.remove(i);
+                i--;
+            }
+        }
+//        dataHouse = new ArrayList<Legislator>();
+//        for (Legislator curLeg : dataHouse){
+//            if (curLeg.chamber != "house"){
+//                dataHouse.remove(curLeg);
+//            }
+//        }
+        Collections.sort(dataHouse, new Comparator<Legislator>() {
+            @Override
+            public int compare(Legislator o1, Legislator o2) {
+                int compareName = o1.last_name.compareTo(o2.last_name);
+                if(compareName == 0) {
+                    return 0;
+                }
+                else if(compareName > 0){
+                    return 1;
+                }
+                else return -1;
+
+            }
+        });
+        return dataHouse;
+    }
+    protected List<Legislator> getLegislatorsSenate(){
+        if(dataSenate != null)
+            return dataSenate;
+//        dataSenate = new ArrayList<Legislator>(dataState);
+//        for(int i = 0; i < dataSenate.size(); i++){
+//            if(dataSenate.get(i).chamber == "house"){
+//                dataSenate.remove(i);
+//                i--;
+//            }
+//        }
+        if(getLegislators() == null)
+            return null;
+        dataSenate = new ArrayList<Legislator>(getLegislators());
+//        dataSenate = new ArrayList<Legislator>();
+//        for (Legislator curLeg : dataSenate){
+//            if(curLeg.chamber != "house")
+//                dataSenate.remove(curLeg);
+//        }
+        for(int i = 0; i < dataSenate.size(); i++){
+            if(dataSenate.get(i).chamber == "house"){
+                dataSenate.remove(i);
+                i--;
+            }
+        }
+        Collections.sort(dataSenate, new Comparator<Legislator>() {
+            @Override
+            public int compare(Legislator o1, Legislator o2) {
+                int compareName = o1.last_name.compareTo(o2.last_name);
+                if(compareName == 0) {
+                    return 0;
+                }
+                else if(compareName > 0){
+                    return 1;
+                }
+                else return -1;
+
+            }
+        });
+        return dataSenate;
     }
 
     protected List<Bill> getBills(){
@@ -192,15 +320,15 @@ public class DataSource {
     //TODO implement following method to sort data you want, it's better if there is a Cache
     //TODO if you has a data Cache, BE SURE to clear it when complete data is updated
     public List<Legislator> getLegislatorsByState(){
-        return getLegislators();
+        return getLegislatorsStates();
     }
 
     public List<Legislator> getLegislatorsByHouse(){
-        return getLegislators();
+        return getLegislatorsHouse();
     }
 
     public List<Legislator> getLegislatorsBySenate(){
-        return getLegislators();
+        return getLegislatorsSenate();
     }
 
     public List<Bill> getActiveBills(){

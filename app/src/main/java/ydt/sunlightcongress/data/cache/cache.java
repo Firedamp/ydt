@@ -18,4 +18,15 @@ public class Cache {
     public List<String> favoriteLegislatorId;
     public List<String> favoritecommitteeId;
     public List<String> favoriteBillId;
+
+//    public List<Legislator> legislatorsState;
+//    public List<Legislator> legislatorsHouse;
+//    public List<Legislator> legislatorsSenate;
+//
+//    public List<Committee> committeesHouse;
+//    public List<Committee> committeesSenate;
+//    public List<Committee> committeesJoint;
+//
+//    public List<Bill> billsActive;
+//    public List<Bill> billsNew;
 }
