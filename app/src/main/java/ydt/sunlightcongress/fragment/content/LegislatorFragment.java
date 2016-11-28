@@ -1,6 +1,7 @@
 package ydt.sunlightcongress.fragment.content;
 
 import android.content.Intent;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.AdapterView;
 
@@ -42,15 +43,20 @@ public class LegislatorFragment extends BaseTabListFragment<Legislator> {
             case 0:
                 return getDataSource().getLegislatorsByState();
             case 1:
-                return getDataSource().getLegislatorsByHouse();
+                return getDataSource().getHouseLegislators();
             case 2:
-                return getDataSource().getLegislatorsBySenate();
+                return getDataSource().getSenateLegislators();
         }
     }
 
     @Override
     protected String getItemIndex(Legislator legislator) {
-        return legislator.bioguide_id.charAt(0)+"";
+        switch (getCurrentPostion()){
+            default:
+                return TextUtils.isEmpty(legislator.last_name) ? "" : legislator.last_name.charAt(0)+"";
+            case 0:
+                return TextUtils.isEmpty(legislator.state_name) ? "" : legislator.state_name.charAt(0)+"";
+        }
     }
 
     @Override

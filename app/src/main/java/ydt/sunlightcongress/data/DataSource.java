@@ -8,6 +8,8 @@ import android.text.TextUtils;
 import com.alibaba.fastjson.JSON;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 import ydt.sunlightcongress.data.cache.Cache;
@@ -33,6 +35,17 @@ public class DataSource {
     private List<Bill> favoriteBills;
     private List<Committee> favoriteCommittees;
     private List<Legislator> favoriteLegistors;
+
+    private List<Legislator> stateLegislators;
+    private List<Legislator> houseLegislators;
+    private List<Legislator> senateLegistors;
+
+    private List<Bill> billActive;
+    private List<Bill> billNew;
+
+    private List<Committee> committeeHouse;
+    private List<Committee> committeeSenate;
+    private List<Committee> committeeJoint;
 
     private OnPendingDataListener mListener;
 
@@ -73,6 +86,7 @@ public class DataSource {
         favoriteBills = null;
         favoriteCommittees = null;
         favoriteLegistors = null;
+
     }
 
     protected void callListenerFetched(boolean succeed){
@@ -87,8 +101,7 @@ public class DataSource {
 
     // if the data is null, data source will to fetch data from the Internet
     // and when the data is fetched successfully, a broadcast will be sent
-    // you should get care of the broadcast and then refresh data when received
-    protected List<Legislator> getLegislators(){
+    public List<Legislator> getLegislators(){
         if(mCache.legislators != null)
             return mCache.legislators;
 
@@ -115,14 +128,14 @@ public class DataSource {
 
             @Override
             public void onFailed(int errCode, String result) {
-                    callListenerFetched(false);
+                callListenerFetched(false);
             }
         });
 
         return null;
     }
 
-    protected List<Bill> getBills(){
+    public List<Bill> getBills(){
         if(mCache.bills != null)
             return mCache.bills;
 
@@ -156,7 +169,7 @@ public class DataSource {
         return null;
     }
 
-    protected List<Committee> getCommittees(){
+    public List<Committee> getCommittees(){
         if(mCache.committees != null)
             return mCache.committees;
 
@@ -192,16 +205,67 @@ public class DataSource {
 
     //TODO implement following method to sort data you want, it's better if there is a Cache
     //TODO if you has a data Cache, BE SURE to clear it when complete data is updated
+
     public List<Legislator> getLegislatorsByState(){
-        return getLegislators();
+        if(stateLegislators != null)
+            return stateLegislators;
+
+        if(getLegislators() == null)
+            return null;
+
+        stateLegislators = new ArrayList<Legislator>(getLegislators());
+        Collections.sort(stateLegislators, new Comparator<Legislator>() {
+            @Override
+            public int compare(Legislator a, Legislator b) {
+                int o = TextUtils.isEmpty(a.state_name) ? 1 : a.state_name.compareTo(b.state_name);
+                return o != 0 ? o : TextUtils.isEmpty(a.last_name) ? 1 : a.last_name.compareTo(b.last_name);
+            }
+        });
+        return stateLegislators;
     }
 
-    public List<Legislator> getLegislatorsByHouse(){
-        return getLegislators();
+    public List<Legislator> getHouseLegislators(){
+        if(houseLegislators != null)
+            return houseLegislators;
+
+        if(getLegislators() == null)
+            return null;
+
+        houseLegislators = new ArrayList<Legislator>();
+        for(Legislator legislator : getLegislators()){
+            if(legislator != null && "house".equals(legislator.chamber))
+                houseLegislators.add(legislator);
+        }
+        Collections.sort(houseLegislators, new Comparator<Legislator>() {
+            @Override
+            public int compare(Legislator a, Legislator b) {
+                return TextUtils.isEmpty(a.last_name) ? 1 : a.last_name.compareTo(b.last_name);
+            }
+        });
+
+        return houseLegislators;
     }
 
-    public List<Legislator> getLegislatorsBySenate(){
-        return getLegislators();
+    public List<Legislator> getSenateLegislators(){
+        if(senateLegistors != null)
+            return senateLegistors;
+
+        if(getLegislators() == null)
+            return null;
+
+        senateLegistors = new ArrayList<Legislator>();
+        for(Legislator legislator : getLegislators()){
+            if(legislator != null && "senate".equals(legislator.chamber))
+                senateLegistors.add(legislator);
+        }
+        Collections.sort(senateLegistors, new Comparator<Legislator>() {
+            @Override
+            public int compare(Legislator a, Legislator b) {
+                return TextUtils.isEmpty(a.last_name) ? 1 : a.last_name.compareTo(b.last_name);
+            }
+        });
+
+        return senateLegistors;
     }
 
     public List<Bill> getActiveBills(){
@@ -228,10 +292,10 @@ public class DataSource {
         if(favoriteBills != null)
             return favoriteBills;
 
-        favoriteBills = new ArrayList<Bill>();
-
         if(mCache.favoriteBillId == null || getBills() == null)
             return favoriteBills;
+
+        favoriteBills = new ArrayList<Bill>();
 
         for(String id : mCache.favoriteBillId){
             for(Bill bill : getBills()){
@@ -250,10 +314,10 @@ public class DataSource {
         if(favoriteCommittees != null)
             return favoriteCommittees;
 
-        favoriteCommittees = new ArrayList<Committee>();
-
         if(mCache.favoritecommitteeId == null || getCommittees() == null)
             return favoriteCommittees;
+
+        favoriteCommittees = new ArrayList<Committee>();
 
         for(String id : mCache.favoritecommitteeId){
             for(Committee committee : getCommittees()){
@@ -271,10 +335,10 @@ public class DataSource {
         if(favoriteLegistors != null)
             return favoriteLegistors;
 
-        favoriteLegistors = new ArrayList<Legislator>();
-
         if(mCache.favoriteLegislatorId == null || getLegislators() == null)
             return favoriteLegistors;
+
+        favoriteLegistors = new ArrayList<Legislator>();
 
         for(String id : mCache.favoriteLegislatorId){
             for(Legislator legislator : getLegislators()){

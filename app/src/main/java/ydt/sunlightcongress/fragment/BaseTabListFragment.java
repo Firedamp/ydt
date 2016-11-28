@@ -144,9 +144,7 @@ public abstract class BaseTabListFragment<T extends Model> extends Fragment impl
         int i = 0;
         if(getData() != null) {
             for (T t : getData()) {
-                if (mIndexMap.containsKey(getItemIndex(t)))
-                    continue;
-                else
+                if (!mIndexMap.containsKey(getItemIndex(t)))
                     mIndexMap.put(getItemIndex(t), i);
                 i++;
             }

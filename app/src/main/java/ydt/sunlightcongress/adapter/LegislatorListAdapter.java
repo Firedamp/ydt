@@ -33,17 +33,17 @@ public class LegislatorListAdapter extends BaseListAdapter<Legislator> {
         Legislator item = getItem(position);
         String name = "";
         if (item != null) {
-            if (!TextUtils.isEmpty(item.first_name))
-                name += (item.first_name + " ");
             if (!TextUtils.isEmpty(item.last_name))
                 name += item.last_name;
+            if (!TextUtils.isEmpty(item.first_name))
+                name += (", " + item.first_name);
         }
         String info = "";
         if(item != null){
             if(!TextUtils.isEmpty(item.party))
                 info += ("(" + item.party + ")");
             if(!TextUtils.isEmpty(item.state))
-                info += item.state;
+                info += item.state_name;
             info += " - ";
             if(item.district != -1)
                 info += ("District " + item.district);
