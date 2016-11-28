@@ -165,8 +165,8 @@ public class LegislatorDetailActivity extends AppCompatActivity implements View.
         ((TextView)findViewById(R.id.detail_legislator_item_chamber).findViewById(R.id.detail_item_key)).setText("Chamber: ");
         ((TextView)findViewById(R.id.detail_legislator_item_chamber).findViewById(R.id.detail_item_value)).setText(legislator.chamber);
 
-        ((TextView)findViewById(R.id.detail_legislator_item_chamber).findViewById(R.id.detail_item_key)).setText("Contact: ");
-        ((TextView)findViewById(R.id.detail_legislator_item_chamber).findViewById(R.id.detail_item_value)).setText(legislator.phone);
+        ((TextView)findViewById(R.id.detail_legislator_item_contact).findViewById(R.id.detail_item_key)).setText("Contact: ");
+        ((TextView)findViewById(R.id.detail_legislator_item_contact).findViewById(R.id.detail_item_value)).setText(legislator.phone);
 
         ((TextView)findViewById(R.id.detail_legislator_item_start_term).findViewById(R.id.detail_item_key)).setText("Start Term: ");
         ((TextView)findViewById(R.id.detail_legislator_item_start_term).findViewById(R.id.detail_item_value)).setText(startTerm == null ? "" : new SimpleDateFormat("MMM dd, YYYY", Locale.ENGLISH).format(startTerm));

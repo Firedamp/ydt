@@ -53,9 +53,9 @@ public class LegislatorFragment extends BaseTabListFragment<Legislator> {
     protected String getItemIndex(Legislator legislator) {
         switch (getCurrentPostion()){
             default:
-                return TextUtils.isEmpty(legislator.last_name) ? "" : legislator.last_name.charAt(0)+"";
+                return TextUtils.isEmpty(legislator.last_name) ? null : legislator.last_name.charAt(0)+"";
             case 0:
-                return TextUtils.isEmpty(legislator.state_name) ? "" : legislator.state_name.charAt(0)+"";
+                return TextUtils.isEmpty(legislator.state_name) ? null : legislator.state_name.charAt(0)+"";
         }
     }
 

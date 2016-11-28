@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,6 +19,7 @@ import ydt.sunlightcongress.adapter.BillListAdapter;
 import ydt.sunlightcongress.adapter.CommitteeListAdapter;
 import ydt.sunlightcongress.adapter.LegislatorListAdapter;
 import ydt.sunlightcongress.data.DataSource;
+import ydt.sunlightcongress.data.model.Legislator;
 import ydt.sunlightcongress.data.model.Model;
 import ydt.sunlightcongress.detail.BillDetailActivity;
 import ydt.sunlightcongress.detail.CommitteeDetailActivity;
@@ -78,7 +80,14 @@ public class FavoriteFragment extends BaseTabListFragment {
 
     @Override
     protected String getItemIndex(Model model) {
-        return "A";
+        switch (getCurrentPostion()){
+            default:
+                return null;
+            case 0:
+                Legislator legislator = (Legislator)model;
+                return TextUtils.isEmpty(legislator.last_name) ? null :
+                        legislator.last_name.charAt(0)+"";
+        }
     }
 
     @Override

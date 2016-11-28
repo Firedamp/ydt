@@ -49,7 +49,7 @@ public class BillFragment extends BaseTabListFragment<Bill> {
 
     @Override
     protected String getItemIndex(Bill bill) {
-        return bill.bill_id.charAt(0)+"";
+        return null;
     }
 
     @Override

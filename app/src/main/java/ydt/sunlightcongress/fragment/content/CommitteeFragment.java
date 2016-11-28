@@ -51,7 +51,7 @@ public class CommitteeFragment extends BaseTabListFragment<Committee> {
 
     @Override
     protected String getItemIndex(Committee committee) {
-        return committee.committee_id.charAt(0)+"";
+        return null;
     }
 
     @Override

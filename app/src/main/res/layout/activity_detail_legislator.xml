@@ -93,7 +93,7 @@
                 layout="@layout/layout_detail_item"/>
 
             <include
-                android:id="@+id/detail_legislator_contact"
+                android:id="@+id/detail_legislator_item_contact"
                 layout="@layout/layout_detail_item"/>
 
             <include

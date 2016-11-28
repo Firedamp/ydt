@@ -135,6 +135,10 @@ public abstract class BaseTabListFragment<T extends Model> extends Fragment impl
         return mListView;
     }
 
+    public Map<String, Integer> getIndexMap(){
+        return mIndexMap;
+    }
+
     public void updateList(){
         if(mAdapter != null)
             mAdapter.update(getData());
@@ -144,7 +148,9 @@ public abstract class BaseTabListFragment<T extends Model> extends Fragment impl
         int i = 0;
         if(getData() != null) {
             for (T t : getData()) {
-                if (!mIndexMap.containsKey(getItemIndex(t)))
+                if (mIndexMap.containsKey(getItemIndex(t)))
+                    continue;
+                else
                     mIndexMap.put(getItemIndex(t), i);
                 i++;
             }
