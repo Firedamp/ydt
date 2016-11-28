@@ -8,6 +8,7 @@ import android.content.IntentFilter;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.content.LocalBroadcastManager;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -148,10 +149,9 @@ public abstract class BaseTabListFragment<T extends Model> extends Fragment impl
         int i = 0;
         if(getData() != null) {
             for (T t : getData()) {
-                if (mIndexMap.containsKey(getItemIndex(t)))
-                    continue;
-                else
-                    mIndexMap.put(getItemIndex(t), i);
+                String index = getItemIndex(t);
+                if (!mIndexMap.containsKey(index) && !TextUtils.isEmpty(index))
+                    mIndexMap.put(index, i);
                 i++;
             }
         }

@@ -40,12 +40,12 @@ public class DataSource {
     private List<Legislator> houseLegislators;
     private List<Legislator> senateLegistors;
 
-    private List<Bill> billActive;
-    private List<Bill> billNew;
+    private List<Bill> activeBills;
+    private List<Bill> newBills;
 
-    private List<Committee> committeeHouse;
-    private List<Committee> committeeSenate;
-    private List<Committee> committeeJoint;
+    private List<Committee> houseCommittees;
+    private List<Committee> senateCommittees;
+    private List<Committee> jointCommittees;
 
     private OnPendingDataListener mListener;
 
@@ -276,16 +276,70 @@ public class DataSource {
         return getBills();
     }
 
-    public List<Committee> getCommitteesByHouse(){
-        return getCommittees();
+    public List<Committee> getHouseCommittees(){
+        if(houseCommittees != null)
+            return houseCommittees;
+
+        if(getCommittees() == null)
+            return null;
+
+        houseCommittees = new ArrayList<Committee>();
+        for(Committee committee : getCommittees()){
+            if(committee != null && "house".equals(committee.chamber))
+                houseCommittees.add(committee);
+        }
+        Collections.sort(houseCommittees, new Comparator<Committee>() {
+            @Override
+            public int compare(Committee a, Committee b) {
+                return TextUtils.isEmpty(a.name) ? 1 : a.name.compareTo(b.name);
+            }
+        });
+
+        return houseCommittees;
     }
 
-    public List<Committee> getCommitteesBySenate(){
-        return getCommittees();
+    public List<Committee> getSenateCommittees(){
+        if(senateCommittees != null)
+            return senateCommittees;
+
+        if(getCommittees() == null)
+            return null;
+
+        senateCommittees = new ArrayList<Committee>();
+        for(Committee committee : getCommittees()){
+            if(committee != null && "senate".equals(committee.chamber))
+                senateCommittees.add(committee);
+        }
+        Collections.sort(senateCommittees, new Comparator<Committee>() {
+            @Override
+            public int compare(Committee a, Committee b) {
+                return TextUtils.isEmpty(a.name) ? 1 : a.name.compareTo(b.name);
+            }
+        });
+
+        return senateCommittees;
     }
 
-    public List<Committee> getCommitteesByJoint(){
-        return getCommittees();
+    public List<Committee> getJointCommittees(){
+        if(jointCommittees != null)
+            return jointCommittees;
+
+        if(getCommittees() == null)
+            return null;
+
+        jointCommittees = new ArrayList<Committee>();
+        for(Committee committee : getCommittees()){
+            if(committee != null && "joint".equals(committee.chamber))
+                jointCommittees.add(committee);
+        }
+        Collections.sort(jointCommittees, new Comparator<Committee>() {
+            @Override
+            public int compare(Committee a, Committee b) {
+                return TextUtils.isEmpty(a.name) ? 1 : a.name.compareTo(b.name);
+            }
+        });
+
+        return jointCommittees;
     }
 
     public List<Bill> getFavoriteBills(){

@@ -12,7 +12,6 @@ import ydt.sunlightcongress.adapter.BaseListAdapter;
 import ydt.sunlightcongress.adapter.CommitteeListAdapter;
 import ydt.sunlightcongress.data.DataSource;
 import ydt.sunlightcongress.data.model.Committee;
-import ydt.sunlightcongress.detail.BillDetailActivity;
 import ydt.sunlightcongress.detail.CommitteeDetailActivity;
 import ydt.sunlightcongress.fragment.BaseTabListFragment;
 
@@ -41,11 +40,11 @@ public class CommitteeFragment extends BaseTabListFragment<Committee> {
         switch (getCurrentPostion()){
             default:
             case 0:
-                return getDataSource().getCommitteesByHouse();
+                return getDataSource().getHouseCommittees();
             case 1:
-                return getDataSource().getCommitteesBySenate();
+                return getDataSource().getSenateCommittees();
             case 2:
-                return getDataSource().getCommitteesByJoint();
+                return getDataSource().getJointCommittees();
         }
     }
 
