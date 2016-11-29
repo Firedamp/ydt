@@ -60,10 +60,7 @@ public class IndicatorView extends FrameLayout {
             setVisibility(GONE);
             return;
         }
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            setZ(10);
-        }
-        setVisibility(VISIBLE);
+        setVisibility(GONE);
         mContainerLayout.setOrientation(LinearLayout.HORIZONTAL);
         mSelectIndex = -1;
 

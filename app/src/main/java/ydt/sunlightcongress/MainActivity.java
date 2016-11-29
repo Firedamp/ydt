@@ -87,7 +87,7 @@ public class MainActivity extends AppCompatActivity
 
         mFragmentController = new FragmentController(getFragmentManager(), R.id.main_container, this);
         mFragmentController.go(Page.LEGISLATORS.name());
-        setTitle("legislators");
+        setTitle("Legislators");
     }
 
     @Override
@@ -107,16 +107,16 @@ public class MainActivity extends AppCompatActivity
 
         if (id == R.id.nav_legislators) {
             mFragmentController.go(Page.LEGISLATORS.name());
-            setTitle("legislators");
+            setTitle("Legislators");
         } else if (id == R.id.nav_bills) {
             mFragmentController.go(Page.BILLS.name());
-            setTitle("bills");
+            setTitle("Bills");
         } else if (id == R.id.nav_committees) {
             mFragmentController.go(Page.COMMITTEES.name());
-            setTitle("committees");
+            setTitle("Committees");
         } else if (id == R.id.nav_favorites) {
             mFragmentController.go(Page.FAVORITE.name());
-            setTitle("favorites");
+            setTitle("Favorites");
         } else if (id == R.id.nav_aboutme) {
             startActivity(new Intent(this, AboutActivity.class));
         }
