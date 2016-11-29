@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -82,22 +83,22 @@ public class CommitteeDetailActivity extends AppCompatActivity{
     private void initView(){
 
         ((TextView)findViewById(R.id.detail_committee_item_id).findViewById(R.id.detail_item_key)).setText("Committee ID: ");
-        ((TextView)findViewById(R.id.detail_committee_item_id).findViewById(R.id.detail_item_value)).setText(committee.committee_id);
+        ((TextView)findViewById(R.id.detail_committee_item_id).findViewById(R.id.detail_item_value)).setText(TextUtils.isEmpty(committee.committee_id) ? "None" : committee.committee_id);
 
         ((TextView)findViewById(R.id.detail_committee_item_name).findViewById(R.id.detail_item_key)).setText("Name: ");
-        ((TextView)findViewById(R.id.detail_committee_item_name).findViewById(R.id.detail_item_value)).setText(committee.name);
+        ((TextView)findViewById(R.id.detail_committee_item_name).findViewById(R.id.detail_item_value)).setText(TextUtils.isEmpty(committee.name) ? "None" : committee.name);
 
         ((TextView)findViewById(R.id.detail_committee_item_chamber).findViewById(R.id.detail_item_key)).setText("Chamber: ");
-        ((TextView)findViewById(R.id.detail_committee_item_chamber).findViewById(R.id.detail_item_value)).setText(committee.chamber);
+        ((TextView)findViewById(R.id.detail_committee_item_chamber).findViewById(R.id.detail_item_value)).setText(TextUtils.isEmpty(committee.chamber) ? "None" : committee.chamber);
 
         ((TextView)findViewById(R.id.detail_committee_item_parent).findViewById(R.id.detail_item_key)).setText("Parent Committee: ");
-        ((TextView)findViewById(R.id.detail_committee_item_parent).findViewById(R.id.detail_item_value)).setText(committee.parent_committee_id);
+        ((TextView)findViewById(R.id.detail_committee_item_parent).findViewById(R.id.detail_item_value)).setText(TextUtils.isEmpty(committee.parent_committee_id) ? "None" : committee.parent_committee_id);
 
         ((TextView)findViewById(R.id.detail_committee_item_contract).findViewById(R.id.detail_item_key)).setText("Contact: ");
-        ((TextView)findViewById(R.id.detail_committee_item_contract).findViewById(R.id.detail_item_value)).setText(committee.phone);
+        ((TextView)findViewById(R.id.detail_committee_item_contract).findViewById(R.id.detail_item_value)).setText(TextUtils.isEmpty(committee.phone) ? "None" : committee.phone);
 
         ((TextView)findViewById(R.id.detail_committee_item_office).findViewById(R.id.detail_item_key)).setText("Office: ");
-        ((TextView)findViewById(R.id.detail_committee_item_office).findViewById(R.id.detail_item_value)).setText(committee.office);
+        ((TextView)findViewById(R.id.detail_committee_item_office).findViewById(R.id.detail_item_value)).setText(TextUtils.isEmpty(committee.office) ? "None" : committee.office);
     }
 
 }

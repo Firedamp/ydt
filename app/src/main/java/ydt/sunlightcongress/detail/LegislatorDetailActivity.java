@@ -160,30 +160,30 @@ public class LegislatorDetailActivity extends AppCompatActivity implements View.
         ((TextView)findViewById(R.id.detail_legislator_item_name).findViewById(R.id.detail_item_value)).setText(legislator.title + ". " + legislator.last_name + ", " + legislator.first_name);
 
         ((TextView)findViewById(R.id.detail_legislator_item_email).findViewById(R.id.detail_item_key)).setText("Email: ");
-        ((TextView)findViewById(R.id.detail_legislator_item_email).findViewById(R.id.detail_item_value)).setText(legislator.oc_email);
+        ((TextView)findViewById(R.id.detail_legislator_item_email).findViewById(R.id.detail_item_value)).setText(TextUtils.isEmpty(legislator.oc_email) ? "None" : legislator.oc_email);
 
         ((TextView)findViewById(R.id.detail_legislator_item_chamber).findViewById(R.id.detail_item_key)).setText("Chamber: ");
-        ((TextView)findViewById(R.id.detail_legislator_item_chamber).findViewById(R.id.detail_item_value)).setText(legislator.chamber);
+        ((TextView)findViewById(R.id.detail_legislator_item_chamber).findViewById(R.id.detail_item_value)).setText(TextUtils.isEmpty(legislator.chamber) ? "None" : legislator.chamber);
 
         ((TextView)findViewById(R.id.detail_legislator_item_contact).findViewById(R.id.detail_item_key)).setText("Contact: ");
-        ((TextView)findViewById(R.id.detail_legislator_item_contact).findViewById(R.id.detail_item_value)).setText(legislator.phone);
+        ((TextView)findViewById(R.id.detail_legislator_item_contact).findViewById(R.id.detail_item_value)).setText(TextUtils.isEmpty(legislator.phone) ? "None" : legislator.phone);
 
         ((TextView)findViewById(R.id.detail_legislator_item_start_term).findViewById(R.id.detail_item_key)).setText("Start Term: ");
-        ((TextView)findViewById(R.id.detail_legislator_item_start_term).findViewById(R.id.detail_item_value)).setText(startTerm == null ? "" : new SimpleDateFormat("MMM dd, YYYY", Locale.ENGLISH).format(startTerm));
+        ((TextView)findViewById(R.id.detail_legislator_item_start_term).findViewById(R.id.detail_item_value)).setText(startTerm == null ? "None" : new SimpleDateFormat("MMM dd, YYYY", Locale.ENGLISH).format(startTerm));
 
         ((TextView)findViewById(R.id.detail_legislator_item_end_term).findViewById(R.id.detail_item_key)).setText("End Term: ");
-        ((TextView)findViewById(R.id.detail_legislator_item_end_term).findViewById(R.id.detail_item_value)).setText(stopTerm == null ? "" : new SimpleDateFormat("MMM dd, YYYY", Locale.ENGLISH).format(stopTerm));
+        ((TextView)findViewById(R.id.detail_legislator_item_end_term).findViewById(R.id.detail_item_value)).setText(stopTerm == null ? "None" : new SimpleDateFormat("MMM dd, YYYY", Locale.ENGLISH).format(stopTerm));
 
         ((TextView)findViewById(R.id.detail_legislator_item_office).findViewById(R.id.detail_item_key)).setText("Office: ");
-        ((TextView)findViewById(R.id.detail_legislator_item_office).findViewById(R.id.detail_item_value)).setText(legislator.office);
+        ((TextView)findViewById(R.id.detail_legislator_item_office).findViewById(R.id.detail_item_value)).setText(TextUtils.isEmpty(legislator.office) ? "None" : legislator.office);
 
         ((TextView)findViewById(R.id.detail_legislator_item_state).findViewById(R.id.detail_item_key)).setText("State: ");
-        ((TextView)findViewById(R.id.detail_legislator_item_state).findViewById(R.id.detail_item_value)).setText(legislator.state_name);
+        ((TextView)findViewById(R.id.detail_legislator_item_state).findViewById(R.id.detail_item_value)).setText(TextUtils.isEmpty(legislator.state_name) ? "None" : legislator.state_name);
 
         ((TextView)findViewById(R.id.detail_legislator_item_fax).findViewById(R.id.detail_item_key)).setText("Fax: ");
-        ((TextView)findViewById(R.id.detail_legislator_item_fax).findViewById(R.id.detail_item_value)).setText(legislator.fax);
+        ((TextView)findViewById(R.id.detail_legislator_item_fax).findViewById(R.id.detail_item_value)).setText(TextUtils.isEmpty(legislator.fax) ? "None" : legislator.fax);
 
         ((TextView)findViewById(R.id.detail_legislator_item_birthday).findViewById(R.id.detail_item_key)).setText("Birthday: ");
-        ((TextView)findViewById(R.id.detail_legislator_item_birthday).findViewById(R.id.detail_item_value)).setText(birthday == null ? "" : new SimpleDateFormat("MMM dd, YYYY", Locale.ENGLISH).format(birthday));
+        ((TextView)findViewById(R.id.detail_legislator_item_birthday).findViewById(R.id.detail_item_value)).setText(birthday == null ? "None" : new SimpleDateFormat("MMM dd, YYYY", Locale.ENGLISH).format(birthday));
     }
 }
