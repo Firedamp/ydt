@@ -12,6 +12,10 @@ import android.widget.Toast;
 
 import com.alibaba.fastjson.JSON;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
+
 import ydt.sunlightcongress.R;
 import ydt.sunlightcongress.data.DataSource;
 import ydt.sunlightcongress.data.model.Bill;
@@ -80,7 +84,13 @@ public class BillDetailActivity extends AppCompatActivity{
     }
 
     private void initView(){
-        //TODO
+        Date introduceDate;
+        try {
+            introduceDate = new SimpleDateFormat("yyyy-MM-dd").parse(bill.introduced_on);
+        }catch (Exception e){
+            introduceDate = null;
+        }
+
         ((TextView)findViewById(R.id.detail_bill_item_id).findViewById(R.id.detail_item_key)).setText("Bill ID: ");
         ((TextView)findViewById(R.id.detail_bill_item_id).findViewById(R.id.detail_item_value)).setText(bill.bill_id);
 
@@ -97,10 +107,10 @@ public class BillDetailActivity extends AppCompatActivity{
         ((TextView)findViewById(R.id.detail_bill_item_chamber).findViewById(R.id.detail_item_value)).setText(bill.chamber);
 
         ((TextView)findViewById(R.id.detail_bill_item_status).findViewById(R.id.detail_item_key)).setText("Status: ");
-        ((TextView)findViewById(R.id.detail_bill_item_status).findViewById(R.id.detail_item_value)).setText(bill.history.active);
+        ((TextView)findViewById(R.id.detail_bill_item_status).findViewById(R.id.detail_item_value)).setText(bill.history.active ? "active" : "inactive");
 
         ((TextView)findViewById(R.id.detail_bill_item_date).findViewById(R.id.detail_item_key)).setText("Introduced On: ");
-        ((TextView)findViewById(R.id.detail_bill_item_date).findViewById(R.id.detail_item_value)).setText(bill.introduced_on);
+        ((TextView)findViewById(R.id.detail_bill_item_date).findViewById(R.id.detail_item_value)).setText(introduceDate == null ? "" : new SimpleDateFormat("MMM dd, YYYY", Locale.ENGLISH).format(introduceDate));
 
         ((TextView)findViewById(R.id.detail_bill_item_url).findViewById(R.id.detail_item_key)).setText("Congress URL: ");
         ((TextView)findViewById(R.id.detail_bill_item_url).findViewById(R.id.detail_item_value)).setText(bill.urls == null ? "" : bill.urls.get("congress"));

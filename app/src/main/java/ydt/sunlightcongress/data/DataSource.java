@@ -4,12 +4,15 @@ import android.content.Context;
 import android.content.Intent;
 import android.support.v4.content.LocalBroadcastManager;
 import android.text.TextUtils;
+import android.util.Log;
 
 import com.alibaba.fastjson.JSON;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.Date;
 import java.util.List;
 
 import ydt.sunlightcongress.data.cache.Cache;
@@ -269,11 +272,64 @@ public class DataSource {
     }
 
     public List<Bill> getActiveBills(){
-        return getBills();
+        if(activeBills != null)
+            return activeBills;
+
+        if(getBills() == null)
+            return null;
+
+        activeBills = new ArrayList<Bill>();
+        for(Bill bill : getBills()){
+            if(bill != null && bill.history != null && bill.history.active)
+                activeBills.add(bill);
+        }
+        Collections.sort(activeBills, new Comparator<Bill>() {
+            @Override
+            public int compare(Bill a, Bill b) {
+                Date da = null;
+                Date db = null;
+                try {
+                    da = new SimpleDateFormat("yyyy-MM-dd").parse(a.introduced_on);
+                    db = new SimpleDateFormat("yyyy-MM-dd").parse(b.introduced_on);
+                    int i = da.getTime() < db.getTime() ? 1 : -1;
+                    return i;
+                }catch (Exception e){
+                    return da == null ? 1 : -1;
+                }
+            }
+        });
+
+        return activeBills;
     }
 
     public List<Bill> getNewBills(){
-        return getBills();
+        if(newBills != null)
+            return newBills;
+
+        if(getBills() == null)
+            return null;
+
+        newBills = new ArrayList<Bill>();
+        for(Bill bill : getBills()){
+            if(bill != null && bill.history != null && !bill.history.active)
+                newBills.add(bill);
+        }
+        Collections.sort(newBills, new Comparator<Bill>() {
+            @Override
+            public int compare(Bill a, Bill b) {
+                Date da = null;
+                Date db = null;
+                try {
+                    da = new SimpleDateFormat("yyyy-MM-dd").parse(a.introduced_on);
+                    db = new SimpleDateFormat("yyyy-MM-dd").parse(b.introduced_on);
+                    return da.getTime() < db.getTime() ? 1 : -1;
+                }catch (Exception e){
+                    return da == null ? 1 : -1;
+                }
+            }
+        });
+
+        return newBills;
     }
 
     public List<Committee> getHouseCommittees(){

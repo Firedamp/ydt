@@ -41,7 +41,7 @@ public class Bill implements Model{
     }
 
     public static class History{
-        public String active;
+        public boolean active;
         public String active_at;
         public boolean awaiting_signature;
         public boolean enacted;

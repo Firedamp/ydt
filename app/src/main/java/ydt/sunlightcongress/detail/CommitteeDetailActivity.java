@@ -80,7 +80,7 @@ public class CommitteeDetailActivity extends AppCompatActivity{
     }
 
     private void initView(){
-        //TODO
+
         ((TextView)findViewById(R.id.detail_committee_item_id).findViewById(R.id.detail_item_key)).setText("Committee ID: ");
         ((TextView)findViewById(R.id.detail_committee_item_id).findViewById(R.id.detail_item_value)).setText(committee.committee_id);
 

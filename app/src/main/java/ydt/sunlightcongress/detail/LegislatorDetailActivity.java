@@ -140,9 +140,9 @@ public class LegislatorDetailActivity extends AppCompatActivity implements View.
         Date stopTerm;
         Date birthday;
         try {
-            startTerm = new SimpleDateFormat("YYYY-MM-DD").parse(legislator.term_start);
-            stopTerm = new SimpleDateFormat("YYYY-MM-DD").parse(legislator.term_end);
-            birthday = new SimpleDateFormat("YYYY-MM-DD").parse(legislator.birthday);
+            startTerm = new SimpleDateFormat("yyyy-MM-dd").parse(legislator.term_start);
+            stopTerm = new SimpleDateFormat("yyyy-MM-dd").parse(legislator.term_end);
+            birthday = new SimpleDateFormat("yyyy-MM-dd").parse(legislator.birthday);
         }catch (Exception e){
             startTerm = null;
             stopTerm = null;
@@ -157,7 +157,7 @@ public class LegislatorDetailActivity extends AppCompatActivity implements View.
         }
 
         ((TextView)findViewById(R.id.detail_legislator_item_name).findViewById(R.id.detail_item_key)).setText("Name: ");
-        ((TextView)findViewById(R.id.detail_legislator_item_name).findViewById(R.id.detail_item_value)).setText(legislator.first_name + " " + legislator.last_name);
+        ((TextView)findViewById(R.id.detail_legislator_item_name).findViewById(R.id.detail_item_value)).setText(legislator.title + ". " + legislator.last_name + ", " + legislator.first_name);
 
         ((TextView)findViewById(R.id.detail_legislator_item_email).findViewById(R.id.detail_item_key)).setText("Email: ");
         ((TextView)findViewById(R.id.detail_legislator_item_email).findViewById(R.id.detail_item_value)).setText(legislator.oc_email);
