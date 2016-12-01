@@ -111,7 +111,7 @@ public class BillDetailActivity extends AppCompatActivity{
         ((TextView)findViewById(R.id.detail_bill_item_status).findViewById(R.id.detail_item_value)).setText(bill.history.active ? "active" : "inactive");
 
         ((TextView)findViewById(R.id.detail_bill_item_date).findViewById(R.id.detail_item_key)).setText("Introduced On: ");
-        ((TextView)findViewById(R.id.detail_bill_item_date).findViewById(R.id.detail_item_value)).setText(introduceDate == null ? "None" : new SimpleDateFormat("MMM dd, YYYY", Locale.ENGLISH).format(introduceDate));
+        ((TextView)findViewById(R.id.detail_bill_item_date).findViewById(R.id.detail_item_value)).setText(introduceDate == null ? "None" : new SimpleDateFormat("MMM dd, yyyy", Locale.ENGLISH).format(introduceDate));
 
         ((TextView)findViewById(R.id.detail_bill_item_url).findViewById(R.id.detail_item_key)).setText("Congress URL: ");
         ((TextView)findViewById(R.id.detail_bill_item_url).findViewById(R.id.detail_item_value)).setText((bill.urls == null || !bill.urls.containsKey("congress")) ? "None" : bill.urls.get("congress"));

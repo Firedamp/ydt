@@ -167,10 +167,10 @@ public class LegislatorDetailActivity extends AppCompatActivity implements View.
         ((TextView)findViewById(R.id.detail_legislator_item_contact).findViewById(R.id.detail_item_value)).setText(TextUtils.isEmpty(legislator.phone) ? "None" : legislator.phone);
 
         ((TextView)findViewById(R.id.detail_legislator_item_start_term).findViewById(R.id.detail_item_key)).setText("Start Term: ");
-        ((TextView)findViewById(R.id.detail_legislator_item_start_term).findViewById(R.id.detail_item_value)).setText(startTerm == null ? "None" : new SimpleDateFormat("MMM dd, YYYY", Locale.ENGLISH).format(startTerm));
+        ((TextView)findViewById(R.id.detail_legislator_item_start_term).findViewById(R.id.detail_item_value)).setText(startTerm == null ? "None" : new SimpleDateFormat("MMM dd, yyyy", Locale.ENGLISH).format(startTerm));
 
         ((TextView)findViewById(R.id.detail_legislator_item_end_term).findViewById(R.id.detail_item_key)).setText("End Term: ");
-        ((TextView)findViewById(R.id.detail_legislator_item_end_term).findViewById(R.id.detail_item_value)).setText(stopTerm == null ? "None" : new SimpleDateFormat("MMM dd, YYYY", Locale.ENGLISH).format(stopTerm));
+        ((TextView)findViewById(R.id.detail_legislator_item_end_term).findViewById(R.id.detail_item_value)).setText(stopTerm == null ? "None" : new SimpleDateFormat("MMM dd, yyyy", Locale.ENGLISH).format(stopTerm));
 
         ((TextView)findViewById(R.id.detail_legislator_item_office).findViewById(R.id.detail_item_key)).setText("Office: ");
         ((TextView)findViewById(R.id.detail_legislator_item_office).findViewById(R.id.detail_item_value)).setText(TextUtils.isEmpty(legislator.office) ? "None" : legislator.office);
@@ -182,6 +182,6 @@ public class LegislatorDetailActivity extends AppCompatActivity implements View.
         ((TextView)findViewById(R.id.detail_legislator_item_fax).findViewById(R.id.detail_item_value)).setText(TextUtils.isEmpty(legislator.fax) ? "None" : legislator.fax);
 
         ((TextView)findViewById(R.id.detail_legislator_item_birthday).findViewById(R.id.detail_item_key)).setText("Birthday: ");
-        ((TextView)findViewById(R.id.detail_legislator_item_birthday).findViewById(R.id.detail_item_value)).setText(birthday == null ? "None" : new SimpleDateFormat("MMM dd, YYYY", Locale.ENGLISH).format(birthday));
+        ((TextView)findViewById(R.id.detail_legislator_item_birthday).findViewById(R.id.detail_item_value)).setText(birthday == null ? "None" : new SimpleDateFormat("MMM dd, yyyy", Locale.ENGLISH).format(birthday));
     }
 }
