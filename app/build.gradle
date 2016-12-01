@@ -15,7 +15,7 @@ android {
         release {
             keyAlias 'sunlight'
             keyPassword 'yidaitian'
-            storeFile file('/Users/caodongyao/Projects/Android/ydt/app/keystore.jks')
+            storeFile file('keystore.jks')
             storePassword 'yidaitian'
         }
     }
